@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #1991DB;
+    --secondary-color: #136FA8;
+    --primary-color-light: #5CAEE1;
+    --primary-color-dark: #26475C;
+    --secondary-color-dark: #0A3C5C;
+}
+
+body {
+    background-color: var(--primary-color-light);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white;
+}
+
+form.form-box {
+    position: relative;
+    padding: 1em;
+    margin: auto;
+    text-align: center;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+
+    max-width: 25%;
+}
+
+form.form-box > p {
+    text-align: left;
+}
+
+
+form.form-box > p > label {
+    font-weight: bold;
+    font-size: 1em; /*16px*/
+    color: var(--secondary-color);    
+
+}
+
+input {
+    background-color: rgba(92, 174, 225, 0.5);
+    padding: 5px;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    box-sizing: border-box;
+    height: 30px;
+}
+
+input.giant {    
+    width: 100%;
+}
+
+input.large {    
+    width: 75%;
+}
+
+input.medium {    
+    width: 50%;
+}
+
+input.medium {    
+    width: 25%;
+}
+
+input.smaller {    
+    width: 00%;
+}
+
+button {
+    color: white;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+
+    font-size: 1.1em;
+
+}
+
+button.dark {
+    background-color: var(--secondary-color-dark);
+}
+
+button.dark:hover {
+    background-color: var(--primary-color-light);
+}
+
+button.light {
+    background-color: var(--secondary-color);
+}
+
+button.light:hover {
+    background-color: var(--primary-color-light);
+}
