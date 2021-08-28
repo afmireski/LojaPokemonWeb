@@ -6,18 +6,21 @@
     --primary-color-light: #5CAEE1;
     --primary-color-dark: #26475C;
     --secondary-color-dark: #0A3C5C;
+    --default-font: Arial, Helvetica, sans-serif;
 }
 
 body {
     background-color: var(--primary-color-light);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--default-font);
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
-form.form-box {
+/* FORM */
+
+form.login-box {
     position: relative;
     padding: 1em;
     margin: auto;
@@ -27,49 +30,92 @@ form.form-box {
     box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
     border-radius: 20px;
 
-    max-width: 25%;
+    max-width: 400px;
+    min-width: 200px;
+
+    align-self: center;
 }
 
-form.form-box > p {
+form.login-box  p {
     text-align: left;
 }
 
-
-form.form-box > p > label {
+form.login-box  label {
     font-weight: bold;
     font-size: 1em; /*16px*/
     color: var(--secondary-color);    
 
 }
 
-input {
+form.form-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+
+    max-width: 75%;
+    min-width: 800px;
+
+    align-self: center;
+}
+
+form.form-box  {
+    text-align: left;
+}
+
+form.form-box  label {
+    font-weight: bold;
+    font-size: 1em; /*16px*/
+    color: var(--secondary-color);    
+}
+
+legend{
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+fieldset {
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+/* INPUTS */
+
+input, select{
     background-color: rgba(92, 174, 225, 0.5);
     padding: 5px;
     color: var(--secondary-color);
     border: 2px solid var(--secondary-color);
     box-sizing: border-box;
-    height: 30px;
+    height: 30px;    
 }
 
-input.giant {    
-    width: 100%;
+giant {    
+    max-width: 100%;
 }
 
-input.large {    
-    width: 75%;
+grande {    
+    max-width: 75%;
+}
+medium {    
+    max-width: 50%;
 }
 
-input.medium {    
-    width: 50%;
+small {    
+    max-width: 25%;
 }
 
-input.medium {    
-    width: 25%;
+smaller {    
+    max-width: 10%;    
 }
 
-input.smaller {    
-    width: 00%;
-}
+/* BUTTONS */
 
 button {
     color: white;
@@ -77,9 +123,12 @@ button {
     border: none;
     font-weight: bold;
     border-radius: 10px;
-
     font-size: 1.1em;
+}
 
+button.small-font {
+    padding: 8px;
+    font-size: 0.8em;
 }
 
 button.dark {
@@ -88,6 +137,7 @@ button.dark {
 
 button.dark:hover {
     background-color: var(--primary-color-light);
+    transition-duration: 500ms;
 }
 
 button.light {
@@ -96,4 +146,12 @@ button.light {
 
 button.light:hover {
     background-color: var(--primary-color-light);
+    transition-duration: 500ms;
+}
+
+
+/* GENERIC */
+margin-vertical {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
