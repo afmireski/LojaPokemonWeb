@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+/* Alinhamentos */
+
+.flex-row {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.flex-column {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.space-between {
+    justify-content: space-around;
+}
+
+.start {
+    justify-content: flex-start;
+    text-align: start;
+}
+
+.end {
+    justify-content: flex-end;
+}
+
+
+/* Disposição */
+.uniforme-space {
+    flex: 1 1 auto;
+}
+
+.small-space {
+    flex: 2 1 auto;
+}
+
+.medium-space {
+    flex: 4 1 auto;
+}
+
+.large-space {
+    flex: 8 1 auto;
+}
+
+
+
+

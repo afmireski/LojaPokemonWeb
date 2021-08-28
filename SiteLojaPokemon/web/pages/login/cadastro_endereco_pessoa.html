@@ -6,10 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="../../styles/flexbox.css">
 
     <title>Loja Pokémon</title>
 </head>
@@ -18,25 +16,25 @@
     <form action="" method="post" class="form-box">
         <legend>Endereço</legend>
         <fieldset>
-            <div class="row">
-                <div class="col col-4">
-                    <label for="txtCEP">CEP</label> <br>
-                    <input type="text" class="small" id="txtCEP" name="txtCEP" maxlength="8">
+            <div class="flex-row form-row">
+                <div class="flex-column small-space">
+                    <label for="txtCEP">CEP</label>
+                    <input type="text" class="medium" id="txtCEP" name="txtCEP" maxlength="8">
                 </div>
-                <div class="col col-8">
-                    <label for="txtDesc">Descrição</label> <br>
+                <div class="flex-column large-space">
+                    <label for="txtDesc">Descrição</label>
                     <input type="text" class="large" id="txtDesc" name="txtDesc">
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col col-4">
-                    <label for="txtCidade">Cidade</label> <br>
-                    <input type="text" class="medium" id="txtDesc" name="txtDesc">
+            <div class="flex-row form-row">
+                <div class="flex-column large-space">
+                    <label for="txtCidade">Cidade</label>
+                    <input type="text" class="large" id="txtDesc" name="txtDesc">
                 </div>
-                <div class="col col-4">
-                    <label for="txtEstado">Estado</label> <br>
-                    <select name="txtEstado" id="txtEstado" class="small">
+                <div class="flex-column medium-space">
+                    <label for="txtEstado">Estado</label>
+                    <select name="txtEstado" id="txtEstado" class="medium">
                         <option value="1">Acre - AC</option>
                         <option value="2">Alagoas - AL</option>
                         <option value="3">Amapá - AP</option>
@@ -66,17 +64,13 @@
                         <option value="0">Distrito Federal - DF</option>
                     </select>
                 </div>
-                <div class="col col-2">
-                    <label for="txtNCasa">Nº Casa</label> <br>
-                    <input type="number" class="smaller" id="txtNCasa" name="txtNCasa" >
+                <div class="flex-column uniforme-space">
+                    <label for="txtNCasa">Nº Casa</label>
+                    <input type="number" class="medium" id="txtNCasa" name="txtNCasa" >
                 </div>
             </div>
-            <div class="row">
-                <div class="col align-self-end">
-                    <p style="text-align: right;">
-                        <button type="button" class="dark small-font" id="pro-end" name="pro-end">Prosseguir</button>
-                    </p>
-                </div>
+            <div class="flex-row form-row end">                
+                <button type="button" class="dark small-font" id="pro-end" name="pro-end">Prosseguir</button>
             </div>
         </fieldset>
         <legend>Dados Pessoais</legend>

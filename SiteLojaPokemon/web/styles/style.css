@@ -44,7 +44,10 @@ form.login-box  label {
     font-weight: bold;
     font-size: 1em; /*16px*/
     color: var(--secondary-color);    
+}
 
+div.form-row {
+    margin-bottom: 15px;
 }
 
 form.form-box {
@@ -73,6 +76,7 @@ form.form-box  label {
     color: var(--secondary-color);    
 }
 
+
 legend{
     font-size: 16px;
     font-weight: bold;
@@ -96,22 +100,23 @@ input, select{
     height: 30px;    
 }
 
-giant {    
+.giant {    
     max-width: 100%;
 }
 
-grande {    
+.large {    
     max-width: 75%;
 }
-medium {    
+
+.medium {    
     max-width: 50%;
 }
 
-small {    
+.small {    
     max-width: 25%;
 }
 
-smaller {    
+.smaller {    
     max-width: 10%;    
 }
 
