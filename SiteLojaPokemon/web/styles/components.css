@@ -56,3 +56,15 @@
 
     align-self: center;
   }
+
+  /* Others */
+  .tile {
+    display: flex;
+
+    cursor: pointer;
+
+    padding: 10px;
+    font-weight: 700; 
+    margin-top: 15px 0px;
+    align-self: center;
+  }

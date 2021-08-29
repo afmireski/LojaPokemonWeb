@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #1991DB;
+    --secondary-color: #136FA8;
+    --primary-color-light: #5CAEE1;
+    --primary-color-dark: #26475C;
+    --secondary-color-dark: #0A3C5C;
+    --default-font: Arial, Helvetica, sans-serif;
+    --sistem-back-color: rgba(92, 174, 225, 0.7);
+}
+
+.perfil-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+
+    max-width: 75%;
+    min-width: 800px;
+
+    align-self: center;
+    text-align: left;
+    color: var(--primary-color-dark);
+}
+
+.perfil-box  label {
+    font-weight: bold;
+    font-size: 1em; /*16px*/
+    color: var(--secondary-color);    
+}
