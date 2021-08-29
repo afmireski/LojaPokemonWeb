@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #1991DB;
+    --secondary-color: #136FA8;
+    --primary-color-light: #5CAEE1;
+    --primary-color-dark: #26475C;
+    --secondary-color-dark: #0A3C5C;
+    --default-font: Arial, Helvetica, sans-serif;
+}
+
+header.store-header {
+    background-color: var(--primary-color);
+    max-height: 30%;
+    height: 200px;
+    margin: 0px;
+    padding: 10px;
+
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+    text-align: center;
+}
+
+
+/* NAV MENU */
+ul.menu {
+    list-style-type: none;
+    padding: 0px;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+ul.menu li {
+    float: left;
+    margin: 0px 10px;
+}
+
+ul.menu li a {
+    display: block;
+    color: var(--secondary-color-dark);
+
+    border: 2px solid var(--secondary-color-dark);
+    border-radius: 20px;
+
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+ul.menu li a.active-index {
+    background-color: var(--secondary-color-dark);
+    color: white;
+}

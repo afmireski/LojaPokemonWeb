@@ -23,6 +23,11 @@ public class DAOUsuario extends DAOGeneric<Usuario>{
    public List<Usuario> searchByID(Integer id) {
        return em.createQuery("SELECT e FROM Usuario e WHERE e.id = :id", Usuario.class).setParameter("id", id).getResultList();
    }
+   
+   public Usuario getUsuarioByEmail(String email) {
+       return em.createQuery("SELECT e FROM Usuario e WHERE e.email like :email", Usuario.class)
+               .setParameter("email", email).getSingleResult();
+   }
      
     public List<String> getFKList() {
         List<String> fks = new ArrayList<>();

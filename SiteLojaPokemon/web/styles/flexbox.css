@@ -25,6 +25,10 @@
     justify-content: flex-end;
 }
 
+.center {
+    justify-content: center;
+}
+
 
 /* Disposição */
 .uniforme-space {

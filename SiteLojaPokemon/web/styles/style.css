@@ -7,12 +7,23 @@
     --primary-color-dark: #26475C;
     --secondary-color-dark: #0A3C5C;
     --default-font: Arial, Helvetica, sans-serif;
+    --sistem-back-color: rgba(92, 174, 225, 0.7);
 }
 
+/*GERAL*/
+
 body {
-    background-color: var(--primary-color-light);
+    background-color: var(--sistem-back-color);
     font-family: var(--default-font);
+    padding: 0px;
+    margin: 0px;
 }
+
+body.out-sys {
+    background-color: var(--primary-color-light);
+}
+
+
 
 h1, h2, h3, h4, h5, h6 {
     color: white;
@@ -153,7 +164,6 @@ button.light:hover {
     background-color: var(--primary-color-light);
     transition-duration: 500ms;
 }
-
 
 /* GENERIC */
 margin-vertical {
