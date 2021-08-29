@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package daos;
 
 import java.util.ArrayList;
@@ -12,23 +11,27 @@ import models.Usuario;
 
 /**
  *
- * @author Matheus 
+ * @author Matheus
  */
-public class DAOUsuario extends DAOGeneric<Usuario>{
+public class DAOUsuario extends DAOGeneric<Usuario> {
 
     public DAOUsuario() {
         super(Usuario.class);
     }
-    
-   public List<Usuario> searchByID(Integer id) {
-       return em.createQuery("SELECT e FROM Usuario e WHERE e.id = :id", Usuario.class).setParameter("id", id).getResultList();
-   }
-   
-   public Usuario getUsuarioByEmail(String email) {
-       return em.createQuery("SELECT e FROM Usuario e WHERE e.email like :email", Usuario.class)
-               .setParameter("email", email).getSingleResult();
-   }
-     
+
+    public List<Usuario> searchByID(Integer id) {
+        return em.createQuery("SELECT e FROM Usuario e WHERE e.id = :id", Usuario.class).setParameter("id", id).getResultList();
+    }
+
+    public Usuario getUsuarioByEmail(String email) {
+        try {
+            return em.createQuery("SELECT e FROM Usuario e WHERE e.email like :email", Usuario.class)
+                    .setParameter("email", email).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<String> getFKList() {
         List<String> fks = new ArrayList<>();
         this.list().forEach((e) -> {
@@ -49,8 +52,8 @@ public class DAOUsuario extends DAOGeneric<Usuario>{
         return em.createQuery("SELECT u FROM Usuario u WHERE u.email like :search").
                 setParameter("search", "%" + search + "%").getResultList();
     }
-    
-     public static void main(String[] args) {
+
+    public static void main(String[] args) {
         ///VERIFICA OS DADOS NO BANCO
         DAOUsuario daoUsuario = new DAOUsuario();
         List<Usuario> end = daoUsuario.list();

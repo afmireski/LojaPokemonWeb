@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -9,6 +10,8 @@
 
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/flexbox.css">
+    <link rel="stylesheet" href="styles/components.css">
+
 
     <title>Loja Pokémon</title>
 
@@ -17,10 +20,37 @@
             text-align: center;
         }
     </style>
+
+    <script>
+        function disableBack() {
+            window.history.forward()
+        }
+        setTimeout(disableBack(), 0);
+        window.onunload = function () {
+            null         
+        }
+    </script>
 </head>
 
 <body class="out-sys">
     <h1>Bem-vindo à Loja Pokémon</h1>
+    
+    <%
+        String errorMessage = (String) request.getAttribute("loginError");
+        
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            %>
+            <div class="flex-row center">
+                <div class="error-message">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">
+                        &times;
+                    </span>
+                    <%=(errorMessage)%>
+                </div>
+            </div>
+            <%
+        }
+    %>
 
     <form action="pages/home.jsp" method="post" class="login-box">        
         <div class="flex-column start form-row">

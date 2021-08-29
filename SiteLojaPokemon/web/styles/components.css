@@ -1,11 +1,16 @@
 @charset "UTF-8";
 
 /* Alert Messages */
-.error {
+.error-message {
     padding: 20px;
     background-color: rgb(255, 77, 77);
     color: white;
     margin-bottom: 15px;
+    margin-top: 15px;
+
+    font-weight: 600;
+
+    max-width: 500px;
 }
 
 

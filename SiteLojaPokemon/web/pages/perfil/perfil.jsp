@@ -1,3 +1,5 @@
+<%@page import="models.Usuario"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,16 +15,20 @@
     
 </head>
 <body>
+    
+    <%
+       final Usuario usuario = (Usuario) session.getAttribute("user");
+    %>
     <header class="store-header">
         <div class="flex-row center">            
-            <h1>Olá, Usuário!!! Bem-vindo(a) ao seu perfil </h1>
+            <h1>Olá, <%=(usuario.getPessoaCPF().getNome())%>!!! Bem-vindo(a) ao seu perfil </h1>
         </div>
         <div class="flex-row start">
             <ul class="menu">
                 <li><a href="../home.jsp">Home</a></li>
                 <li><a href="">Loja</a></li>
                 <li><a href="">Pagamentos</a></li>
-                <li><a href="perfil.html" class="active-index">Perfil</a></li>
+                <li><a href="perfil.jsp" class="active-index">Perfil</a></li>
             </ul>
         </div>
     </header>

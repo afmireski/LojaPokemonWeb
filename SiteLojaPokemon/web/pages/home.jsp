@@ -22,9 +22,10 @@
 
     <body>
         <%
+        Usuario usuario = (Usuario) session.getAttribute("user");
         final String email = request.getParameter("txtEmail");
-        final String password = request.getParameter("txtSenha");
-        if (email == null || password == null) { 
+        String password = request.getParameter("txtSenha");
+        if ((email == null || password == null) && usuario == null) { 
         %>
             <div class="message-box">       
                 <div class="flex-row center">
@@ -38,10 +39,15 @@
             </div>
         <% 
         } else {
-            final DAOUsuario daoUsuario = new DAOUsuario();
-            final Usuario usuario = daoUsuario.getUsuarioByEmail(email);
+            if (usuario == null) {
+                final DAOUsuario daoUsuario = new DAOUsuario(); 
+                usuario = daoUsuario.getUsuarioByEmail(email);
+            } else {
+                password = usuario.getSenha();
+            }
             if (usuario != null && usuario.getAtivo()) {
                 if (usuario.getSenha().equals(password)) {
+                    session.setAttribute("user", usuario);
             %>
         <header class="store-header">
             <div class="flex-row center">
@@ -52,20 +58,22 @@
                     <li><a href="home.html" class="active-index">Home</a></li>
                     <li><a href="">Loja</a></li>
                     <li><a href="">Pagamentos</a></li>
-                    <li><a href="perfil/perfil.html">Perfil</a></li>
+                    <li><a href="perfil/perfil.jsp">Perfil</a></li>
                 </ul>
             </div>
         </header>
         <% 
                 } else { 
-        %>
-                    <h2>Senha Incorreta></h2>
-        <% 
+                    request.setAttribute("loginError", "Senha incorreta, tente novamente!");
+                    RequestDispatcher rd = request.getRequestDispatcher("../login.jsp");
+
+                    rd.include(request, response);
                 }
-            } else { 
-        %>
-            <h2>Você não tem poder aqui. Saía de meus domínios ou sofrerá as consequências</h2>
-        <% 
+            } else {                 
+                request.setAttribute("loginError", "Usuário não encontrado, verifique o seu endereço de e-mail!");
+                RequestDispatcher rd = request.getRequestDispatcher("../login.jsp");
+
+                rd.include(request, response);                
             }
         }
         %>
