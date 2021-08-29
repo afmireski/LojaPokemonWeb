@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+:root {
+    --primary-color: #1991DB;
+    --secondary-color: #136FA8;
+    --primary-color-light: #5CAEE1;
+    --primary-color-dark: #26475C;
+    --secondary-color-dark: #0A3C5C;
+    --default-font: Arial, Helvetica, sans-serif;
+    --sistem-back-color: rgba(92, 174, 225, 0.7);
+}
+
 /* Alert Messages */
 .error-message {
     padding: 20px;
@@ -57,6 +67,75 @@
     align-self: center;
   }
 
+  /* MODAL */
+  /* The Close Button */
+.close-modal {
+  color: var(--secondary-color-dark);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: rgb(255, 56, 56);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}        
+
+/* Modal Body */
+.modal-body {
+  padding: 2px 16px;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+      top: -300px;
+      opacity: 0
+  }
+
+  to {
+      top: 0;
+      opacity: 1
+  }
+}
+
   /* Others */
   .tile {
     display: flex;
@@ -68,3 +147,5 @@
     margin-top: 15px 0px;
     align-self: center;
   }
+
+  

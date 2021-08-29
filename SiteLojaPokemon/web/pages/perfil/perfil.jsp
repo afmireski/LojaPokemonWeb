@@ -104,11 +104,91 @@
             </div>
         </div>
 
+        <!-- MODAL ENDEREÇO -->
+        <div class="modal"  id="end-form">
+            <form action="" method="post" class="form-box">
+                <div class="flex-row end"><span class="close-modal">&times;</span></div>
+                <div class="flex-row form-row">
+                    <div class="flex-column large-space">
+                        <label for="txtDesc">Descrição</label>
+                        <input type="text" class="large" id="txtDesc" name="txtDesc">
+                    </div>
+                </div>
+                <div class="flex-row form-row">
+                    <div class="flex-column large-space">
+                        <label for="txtCidade">Cidade</label>
+                        <input type="text" class="large" id="txtCidade" name="txtCidade">
+                    </div>
+                    <div class="flex-column medium-space">
+                        <label for="txtEstado">Estado</label>
+                        <select name="txtEstado" id="txtEstado" class="medium">
+                            <option value="1">Acre - AC</option>
+                            <option value="2">Alagoas - AL</option>
+                            <option value="3">Amapá - AP</option>
+                            <option value="4">Amazonas - AM</option>
+                            <option value="5">Bahia - BA</option>
+                            <option value="6">Ceará - CE</option>
+                            <option value="7">Espírito Santo - ES</option>
+                            <option value="8">Goías - GO</option>
+                            <option value="9">Maranhão - MA</option>
+                            <option value="10">Mato Grosso - MT</option>
+                            <option value="11">Mato Grosso do Sul - MS</option>
+                            <option value="12">Minas Gerais - MG</option>
+                            <option value="13">Pará - PA</option>
+                            <option value="14">Paraíba - PB</option>
+                            <option value="15" selected>Paraná - PR</option>
+                            <option value="16">Pernambuco - PE</option>
+                            <option value="17">Piauí - PI</option>
+                            <option value="18">Rio de Janeiro - RJ</option>
+                            <option value="19">Rio Grande do Norte - RN</option>
+                            <option value="20">Rio Grande do Sul - RS</option>
+                            <option value="21">Rondônia - RO</option>
+                            <option value="22">Roraima - RR</option>
+                            <option value="23">Santa Catarina - SC</option>
+                            <option value="24">São Paulo - SP</option>
+                            <option value="25">Sergipe - SE</option>
+                            <option value="26">Tocantins - TO</option>
+                            <option value="0">Distrito Federal - DF</option>
+                        </select>
+                    </div>                    
+                </div>
+                <div class="flex-row form-row end">
+                    <button type="button" class="dark" id="upd-end" name="upd-end">Salvar</button>
+                </div>
+            </form>
+        </div>
+
         <script>
-            function logout() {
-                document.location.href = "../../logoutServlet"
+            var end_form = document.getElementById("end-form");
+
+            var edit_end = document.getElementById("edit-end");
+
+            var close_end = document.getElementsByClassName("close-modal")[0];
+
+            edit_end.onclick = function () {
+                var txtDesc = document.getElementById("txtDesc");
+                var txtCidade = document.getElementById("txtCidade");
+                var txtEstado = document.getElementById("txtEstado");
+
+                txtDesc.value = '<%=(usuario.getPessoaCPF().getEndereco().getNome())%>';
+                txtCidade.value = '<%=(usuario.getPessoaCPF().getEndereco().getCidade())%>';
+                txtEstado.value = <%=usuario.getPessoaCPF().getEndereco().getUf()%>;
+
+                end_form.style.display = "block";
+            }
+
+            close_end.onclick = function () {
+                end_form.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target == end_form) {
+                    end_form.style.display = "none";
+                }
             }
         </script>
+
+        <script src="../../scripts/generalScripts.js"></script>
         <%
             }
         %>
