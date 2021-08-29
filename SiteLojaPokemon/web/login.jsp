@@ -52,7 +52,7 @@
         }
     %>
 
-    <form action="pages/home.jsp" method="post" class="login-box">        
+    <form action="loginServlet" method="post" class="login-box">        
         <div class="flex-column start form-row">
             <label for="txtEmail">E-mail</label>
             <input type="email" name="txtEmail" id="txtEmail" class="giant">

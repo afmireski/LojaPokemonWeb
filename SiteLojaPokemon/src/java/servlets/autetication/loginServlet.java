@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Usuario;
 
 /**
@@ -40,7 +41,7 @@ public class loginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginServlet</title>");            
+            out.println("<title>Servlet loginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
@@ -77,23 +78,29 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
         final String email = request.getParameter("txtEmail");
         final String password = request.getParameter("txtSenha");
-        
+
         final DAOUsuario daoUsuario = new DAOUsuario();
-        
+
         final Usuario usuario = daoUsuario.getUsuarioByEmail(email);
-        
+
         if (usuario != null) {
             if (usuario.getSenha().equals(password)) {
-                request.setAttribute("usuario", usuario);
-                
-                RequestDispatcher rd = request.getRequestDispatcher("pages/home.jsp");
-                
-                rd.forward(request, response);
+                HttpSession session = request.getSession();
+
+                session.setAttribute("user", usuario);
+
+                response.sendRedirect("pages/home.jsp");
             } else {
-                
+                request.setAttribute("loginError", "Senha incorreta, tente novamente!");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+
+                rd.forward(request, response);
             }
         } else {
-            System.out.println("Esse usuário não existe!");
+            request.setAttribute("loginError", "Usuário não encontrado, verifique o seu endereço de e-mail!");
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+
+            rd.forward(request, response);
         }
     }
 
