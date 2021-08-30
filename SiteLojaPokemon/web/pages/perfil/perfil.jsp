@@ -158,18 +158,18 @@
 
         <!-- MODAL ENDEREÇO -->
         <div class="modal"  id="end-form">
-            <form action="" method="post" class="modal-box">
+            <form action="../../updateEnderecoServlet" method="post" class="modal-box"  accept-charset="utf-8">
                 <div class="flex-row end"><span class="close-modal">&times;</span></div>
                 <div class="flex-row form-row">
                     <div class="flex-column large-space">
                         <label for="txtDesc">Descrição</label>
-                        <input type="text" class="large" id="txtDesc" name="txtDesc">
+                        <input type="text" class="large" id="txtDesc" name="txtDesc" required>
                     </div>
                 </div>
                 <div class="flex-row form-row">
                     <div class="flex-column large-space">
                         <label for="txtCidade">Cidade</label>
-                        <input type="text" class="large" id="txtCidade" name="txtCidade">
+                        <input type="text" class="large" id="txtCidade" name="txtCidade" required>
                     </div>
                     <div class="flex-column medium-space">
                         <label for="txtEstado">Estado</label>
@@ -200,24 +200,24 @@
                             <option value="24">São Paulo - SP</option>
                             <option value="25">Sergipe - SE</option>
                             <option value="26">Tocantins - TO</option>
-                            <option value="0">Distrito Federal - DF</option>
+                            <option value="27">Distrito Federal - DF</option>
                         </select>
                     </div>                    
                 </div>
                 <div class="flex-row form-row end">
-                    <button type="button" class="dark" id="upd-end" name="upd-end">Salvar</button>
+                    <button type="submit" class="dark" id="upd-end" name="upd-end">Salvar</button>
                 </div>
             </form>
         </div>
 
         <!-- MODAL PESSOA -->
         <div class="modal"  id="pes-form">
-            <form action="" method="post" class="modal-box">
+            <form action="../../updatePessoaServlet" method="post" class="modal-box" accept-charset="utf-8">
                 <div class="flex-row end"><span class="close-modal">&times;</span></div>
                 <div class="flex-row form-row">
                     <div class="flex-column large-space">
                         <label for="txtNome">Nome</label>
-                        <input type="text" class="large" id="txtNome" name="txtNome">
+                        <input type="text" class="large" id="txtNome" name="txtNome" required>
                     </div>
                 </div>
                 <div class="flex-row form-row">
@@ -230,29 +230,29 @@
                     </div>
                     <div class="flex-column uniforme-space">
                         <label for="txtDataNascimento">Data de Nascimento</label>
-                        <input type="date" name="txtDataNascimento" id="txtDataNascimento" class="medium">
+                        <input type="date" name="txtDataNascimento" id="txtDataNascimento" class="medium" required>
                     </div>                    
                 </div>
                 <div class="flex-row form-row end">
-                    <button type="button" class="dark" id="upd-pes" name="upd-pes">Salvar</button>
+                    <button type="submit" class="dark" id="upd-pes" name="upd-pes">Salvar</button>
                 </div>
             </form>
         </div>
 
         <!-- MODAL USUARIO -->
         <div class="modal"  id="user-form">
-            <form action="" method="post" class="modal-box">
+            <form action="../../updateUsuarioServlet" method="post" class="modal-box"  accept-charset="utf-8">
                 <div class="flex-row end"><span class="close-modal">&times;</span></div>
                 <div class="flex-row form-row">
                     <div class="flex-column uniforme-space">
                         <label for="txtEmail">E-mail</label>
-                        <input type="email" class="large" id="txtEmail" name="txtEmail">
+                        <input type="email" class="large" id="txtEmail" name="txtEmail" required>
                     </div>
                 </div>
                 <div class="flex-row form-row">
                     <div class="flex-column uniforme-space">
                         <label for="txtVSenha">Verificação de senha</label>
-                        <input type="password" class="large" id="txtVSenha" name="txtVSenha" placeholder="Informe sua senha atual">
+                        <input type="password" class="large" id="txtVSenha" name="txtVSenha" placeholder="Informe sua senha atual" required>
                     </div>                                     
                 </div>
                 <div class="flex-row form-row">
@@ -268,7 +268,7 @@
                     </div>                                     
                 </div>
                 <div class="flex-row form-row end">
-                    <button type="button" class="dark" id="upd-user" name="upd-user">Salvar</button>
+                    <button type="submit" class="dark" id="upd-user" name="upd-user">Salvar</button>
                 </div>
             </form>
         </div>
