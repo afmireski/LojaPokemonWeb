@@ -9,6 +9,7 @@ import daos.DAOUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -107,13 +108,27 @@ public class updateUsuarioServlet extends HttpServlet {
                     response.sendRedirect("pages/home.jsp");
 
                 } catch (Exception e) {
+                    session.setAttribute(
+                            "updateError",
+                            "Ocorreu uma falha ao tentar atualizar seu usuário, "
+                            + "verifique os dados inseridos e tente novamente.");
+
+                    response.sendRedirect("pages/perfil/perfil.jsp");
                 }
             } else {
-//                TODO: Mensagem de invalidez
+                session.setAttribute(
+                        "updateError",
+                        "A confirmação de senha não está de acordo com a nova senha informada.");
+
+                response.sendRedirect("pages/perfil/perfil.jsp");
             }
 
         } else {
-//            TODO: Mensagem de invalidez
+            session.setAttribute(
+                    "updateError",
+                    "A senha informada para a verificação está incorreta.");
+
+            response.sendRedirect("pages/perfil/perfil.jsp");
         }
     }
 

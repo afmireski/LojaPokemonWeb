@@ -9,6 +9,7 @@ import daos.DAOEndereco;
 import daos.DAOUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +43,7 @@ public class updateEnderecoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet updateEnderecoServlet</title>");            
+            out.println("<title>Servlet updateEnderecoServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet updateEnderecoServlet at " + request.getContextPath() + "</h1>");
@@ -77,40 +78,46 @@ public class updateEnderecoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         final String[] estados = {"ACRE", "ALAGOAS", "AMAPÁ", "AMAZONAS", "BAHIA", "CEARÁ",
-        "ESPÍRITO SANTO", "GOÍAS", "MARANHÃO", "MATO GROSSO", "MATO GROSSO DO SUL",
-        "MINAS GERAIS", "PARÁ", "PARAÍBA", "PARANÁ", "PERNAMBUCO", "PIAUÍ", "RIO DE JANEIRO",
-        "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "RONDÔNIA", "RORAIMA", "SANTA CATARINA",
-        "SÃO PAULO", "SERGIPE", "TOCANTINS", "DISTRITO FEDERAL"};
-        
+            "ESPÍRITO SANTO", "GOÍAS", "MARANHÃO", "MATO GROSSO", "MATO GROSSO DO SUL",
+            "MINAS GERAIS", "PARÁ", "PARAÍBA", "PARANÁ", "PERNAMBUCO", "PIAUÍ", "RIO DE JANEIRO",
+            "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "RONDÔNIA", "RORAIMA", "SANTA CATARINA",
+            "SÃO PAULO", "SERGIPE", "TOCANTINS", "DISTRITO FEDERAL"};
+
         final String enderecoDescricao = request.getParameter("txtDesc");
         final String enderecoCidade = request.getParameter("txtCidade");
         final Integer enderecoEstado = Integer.valueOf(request.getParameter("txtEstado"));
-        
+
         final HttpSession session = request.getSession();
-        
+
         final Usuario usuario = (Usuario) session.getAttribute("user");
-        
+
         final Endereco newEndereco = new Endereco(
-                usuario.getPessoaCPF().getEndereco().getEnderecoPK(), 
-                enderecoDescricao, 
-                enderecoCidade, 
-                enderecoEstado, 
+                usuario.getPessoaCPF().getEndereco().getEnderecoPK(),
+                enderecoDescricao,
+                enderecoCidade,
+                enderecoEstado,
                 estados[enderecoEstado - 1]);
-        
+
         final DAOEndereco daoEndereco = new DAOEndereco();
-        
-        try {            
+
+        try {
             daoEndereco.update(newEndereco);
-            
+
             DAOUsuario daoUsuario = new DAOUsuario();
-            
+
             session.setAttribute("user", daoUsuario.get(usuario.getId()));
-            
+
             response.sendRedirect("pages/home.jsp");
-            
+
         } catch (Exception e) {
+            session.setAttribute(
+                    "updateError",
+                    "Ocorreu uma falha ao tentar atualizar seu endereço, "
+                    + "verifique os dados inseridos e tente novamente.");
+
+            response.sendRedirect("pages/perfil/perfil.jsp");
         }
     }
 

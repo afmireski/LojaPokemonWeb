@@ -53,6 +53,25 @@
             </div>
         </header>
 
+        <!-- Mensagem de Erro -->
+        <%
+            String errorMessage = (String) session.getAttribute("updateError");
+
+            if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+                session.removeAttribute("updateError");
+        %>
+        <div class="flex-row center">
+            <div class="error-message">
+                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">
+                    &times;
+                </span>
+                <%=(errorMessage)%>
+            </div>
+        </div>
+        <%
+            }
+        %>
+
         <!-- Corpo -->
         <div class="perfil-box">
             <legend>Endereço</legend>
@@ -329,7 +348,7 @@
             var close_user = document.getElementsByClassName("close-modal")[2];
 
             edit_user.onclick = function () {
-                var txtEmail = document.getElementById("txtEmail");                
+                var txtEmail = document.getElementById("txtEmail");
 
                 txtEmail.value = '<%=(usuario.getEmail())%>';
 
