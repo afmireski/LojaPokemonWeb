@@ -20,8 +20,8 @@
     box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
     border-radius: 20px;
 
-    max-width: 75%;
-    min-width: 800px;
+    max-width: 50%;
+    min-width: 600px;
 
     align-self: center;
     text-align: left;
@@ -29,6 +29,29 @@
 }
 
 .perfil-box  label {
+    font-weight: bold;
+    font-size: 1em; /*16px*/
+    color: var(--secondary-color);    
+}
+
+.modal-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 40%;
+    min-width: 300px;
+
+    align-self: center;
+    text-align: left;
+    color: var(--primary-color-dark);
+}
+
+.modal-box label {
     font-weight: bold;
     font-size: 1em; /*16px*/
     color: var(--secondary-color);    

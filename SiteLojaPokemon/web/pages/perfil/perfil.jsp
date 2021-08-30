@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -96,6 +97,57 @@
                 </div>
             </fieldset>
 
+            <legend>Dados pessoais</legend>
+            <fieldset>
+                <div class="flex-row form-row">
+                    <div class="flex-column small-space">
+                        <label for="pCPF">CPF</label>
+                        <p id="pCPF">
+                            <%=(usuario.getPessoaCPF().getCpf())%>
+                        </p>
+                    </div>
+                    <div class="flex-column large-space">
+                        <label for="pNome">Nome</label>
+                        <p id="pNome">
+                            <%=(usuario.getPessoaCPF().getNome())%>                        
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex-row form-row">
+                    <div class="flex-column large-space">
+                        <label for="pSexo">Sexo</label>
+                        <p id="pSexo">                        
+                            <%=(usuario.getPessoaCPF().getSexoDescricao())%>
+                        </p>
+                    </div>
+                    <div class="flex-column medium-space">
+                        <label for="pDataNascimento">Data de Nascimento</label>                    
+                        <p id="pDataNascimento">                        
+                            <%=(new SimpleDateFormat("dd/MM/yyyy").format(usuario.getPessoaCPF().getDataNascimento()))%>
+                        </p>
+                    </div>                    
+                </div>
+                <div class="flex-row form-row end">                
+                    <button type="button" class="dark" id="edit-pes" name="edit-pes">Editar</button>
+                </div>
+            </fieldset>
+
+            <legend>Dados de usuário</legend>
+            <fieldset>
+                <div class="flex-row form-row">
+                    <div class="flex-column medium-space">
+                        <label for="pEmail">E-mail</label>
+                        <p id="pEmail">
+                            <%=(usuario.getEmail())%>
+                        </p>
+                    </div>
+                </div>                      
+                <div class="flex-row form-row end">                
+                    <button type="button" class="dark" id="edit-user" name="edit-user">Editar</button>
+                </div>
+            </fieldset>
+
             <div class="tile" style=" color: red;" onclick="logout()">
                 <span class="material-icons" style="margin-right: 5px;">
                     logout
@@ -106,7 +158,7 @@
 
         <!-- MODAL ENDEREÇO -->
         <div class="modal"  id="end-form">
-            <form action="" method="post" class="form-box">
+            <form action="" method="post" class="modal-box">
                 <div class="flex-row end"><span class="close-modal">&times;</span></div>
                 <div class="flex-row form-row">
                     <div class="flex-column large-space">
@@ -158,7 +210,71 @@
             </form>
         </div>
 
+        <!-- MODAL PESSOA -->
+        <div class="modal"  id="pes-form">
+            <form action="" method="post" class="modal-box">
+                <div class="flex-row end"><span class="close-modal">&times;</span></div>
+                <div class="flex-row form-row">
+                    <div class="flex-column large-space">
+                        <label for="txtNome">Nome</label>
+                        <input type="text" class="large" id="txtNome" name="txtNome">
+                    </div>
+                </div>
+                <div class="flex-row form-row">
+                    <div class="flex-column uniforme-space">
+                        <label for="txtSexo">Sexo</label>
+                        <select name="txtSexo" id="txtSexo" class="medium">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </select>
+                    </div>
+                    <div class="flex-column uniforme-space">
+                        <label for="txtDataNascimento">Data de Nascimento</label>
+                        <input type="date" name="txtDataNascimento" id="txtDataNascimento" class="medium">
+                    </div>                    
+                </div>
+                <div class="flex-row form-row end">
+                    <button type="button" class="dark" id="upd-pes" name="upd-pes">Salvar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- MODAL USUARIO -->
+        <div class="modal"  id="user-form">
+            <form action="" method="post" class="modal-box">
+                <div class="flex-row end"><span class="close-modal">&times;</span></div>
+                <div class="flex-row form-row">
+                    <div class="flex-column uniforme-space">
+                        <label for="txtEmail">E-mail</label>
+                        <input type="email" class="large" id="txtEmail" name="txtEmail">
+                    </div>
+                </div>
+                <div class="flex-row form-row">
+                    <div class="flex-column uniforme-space">
+                        <label for="txtVSenha">Verificação de senha</label>
+                        <input type="password" class="large" id="txtVSenha" name="txtVSenha" placeholder="Informe sua senha atual">
+                    </div>                                     
+                </div>
+                <div class="flex-row form-row">
+                    <div class="flex-column uniforme-space">
+                        <label for="txtNovaSenha">Nova senha</label>
+                        <input type="password" class="large" id="txtNovaSenha" name="txtNovaSenha" placeholder="Opcional se não quiser atualizar">
+                    </div>                                     
+                </div>
+                <div class="flex-row form-row">
+                    <div class="flex-column uniforme-space">
+                        <label for="txtConfirmaNovaSenha">Confirme à nova senha</label>
+                        <input type="password" class="large" id="txtConfirmaNovaSenha" name="txtConfirmaNovaSenha" placeholder="Opcional se não quiser atualizar">
+                    </div>                                     
+                </div>
+                <div class="flex-row form-row end">
+                    <button type="button" class="dark" id="upd-user" name="upd-user">Salvar</button>
+                </div>
+            </form>
+        </div>
+
         <script>
+            //Form Endereço
             var end_form = document.getElementById("end-form");
 
             var edit_end = document.getElementById("edit-end");
@@ -172,7 +288,7 @@
 
                 txtDesc.value = '<%=(usuario.getPessoaCPF().getEndereco().getNome())%>';
                 txtCidade.value = '<%=(usuario.getPessoaCPF().getEndereco().getCidade())%>';
-                txtEstado.value = <%=usuario.getPessoaCPF().getEndereco().getUf()%>;
+                txtEstado.value = '<%=usuario.getPessoaCPF().getEndereco().getUf()%>';
 
                 end_form.style.display = "block";
             }
@@ -181,11 +297,59 @@
                 end_form.style.display = "none";
             }
 
+
+            //Form Pessoa
+            var pes_form = document.getElementById("pes-form");
+
+            var edit_pes = document.getElementById("edit-pes");
+
+            var close_pes = document.getElementsByClassName("close-modal")[1];
+
+            edit_pes.onclick = function () {
+                var txtNome = document.getElementById("txtNome");
+                var txtSexo = document.getElementById("txtSexo");
+                var txtDataNascimento = document.getElementById("txtDataNascimento");
+
+                txtNome.value = '<%=(usuario.getPessoaCPF().getNome())%>';
+                txtSexo.value = '<%=(usuario.getPessoaCPF().getSexoDescricao())%>';
+                txtDataNascimento.value = '<%=new SimpleDateFormat("yyyy-MM-dd").format(usuario.getPessoaCPF().getDataNascimento())%>';
+
+                pes_form.style.display = "block";
+            }
+
+            close_pes.onclick = function () {
+                pes_form.style.display = "none";
+            }
+
+            //Form Usuário
+            var user_form = document.getElementById("user-form");
+
+            var edit_user = document.getElementById("edit-user");
+
+            var close_user = document.getElementsByClassName("close-modal")[2];
+
+            edit_user.onclick = function () {
+                var txtEmail = document.getElementById("txtEmail");                
+
+                txtEmail.value = '<%=(usuario.getEmail())%>';
+
+                user_form.style.display = "block";
+            }
+
+            close_user.onclick = function () {
+                user_form.style.display = "none";
+            }
+
             window.onclick = function (event) {
                 if (event.target == end_form) {
                     end_form.style.display = "none";
+                } else if (event.target == pes_form) {
+                    pes_form.style.display = "none";
+                } else if (event.target == user_form) {
+                    user_form.style.display = "none";
                 }
             }
+
         </script>
 
         <script src="../../scripts/generalScripts.js"></script>
