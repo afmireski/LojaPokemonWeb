@@ -8,6 +8,7 @@
     --secondary-color-dark: #0A3C5C;
     --default-font: Arial, Helvetica, sans-serif;
     --sistem-back-color: rgba(92, 174, 225, 0.7);
+    --delete-button-color: #630909;
 }
 
 /* Alert Messages */
@@ -147,5 +148,40 @@
     margin-top: 15px 0px;
     align-self: center;
   }
+
+  /* Buttons */
+
+  button.delete-button {
+    color: white;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 1.2em;
+
+    background-color: var(--delete-button-color);
+  }
+
+  button.delete-button:hover {
+    background-color: rgb(255, 72, 72);
+    transition-duration: 500ms;
+  }
+
+  button.no-delete-button {
+    color: white;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 1.2em;
+
+    background-color: var(--secondary-color-dark);
+  }
+
+  button.no-delete-button:hover {
+    background-color: var(--primary-color-light);
+    transition-duration: 500ms;
+  }
+
 
   

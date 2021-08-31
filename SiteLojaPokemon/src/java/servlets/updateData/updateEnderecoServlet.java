@@ -9,7 +9,6 @@ import daos.DAOEndereco;
 import daos.DAOUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -113,7 +112,7 @@ public class updateEnderecoServlet extends HttpServlet {
 
         } catch (Exception e) {
             session.setAttribute(
-                    "updateError",
+                    "perfilError",
                     "Ocorreu uma falha ao tentar atualizar seu endereço, "
                     + "verifique os dados inseridos e tente novamente.");
 

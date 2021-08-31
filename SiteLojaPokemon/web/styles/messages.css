@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+h1.excluir-title {
+    font-weight: bolder;
+    font-size: 2em;
+
+    color: rgb(95, 0, 0);
+}

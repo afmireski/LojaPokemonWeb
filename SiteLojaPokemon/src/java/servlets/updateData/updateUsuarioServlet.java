@@ -109,7 +109,7 @@ public class updateUsuarioServlet extends HttpServlet {
 
                 } catch (Exception e) {
                     session.setAttribute(
-                            "updateError",
+                            "perfilError",
                             "Ocorreu uma falha ao tentar atualizar seu usuário, "
                             + "verifique os dados inseridos e tente novamente.");
 
@@ -117,7 +117,7 @@ public class updateUsuarioServlet extends HttpServlet {
                 }
             } else {
                 session.setAttribute(
-                        "updateError",
+                        "perfilError",
                         "A confirmação de senha não está de acordo com a nova senha informada.");
 
                 response.sendRedirect("pages/perfil/perfil.jsp");
@@ -125,7 +125,7 @@ public class updateUsuarioServlet extends HttpServlet {
 
         } else {
             session.setAttribute(
-                    "updateError",
+                    "perfilError",
                     "A senha informada para a verificação está incorreta.");
 
             response.sendRedirect("pages/perfil/perfil.jsp");

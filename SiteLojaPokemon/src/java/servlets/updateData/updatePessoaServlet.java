@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -114,7 +113,7 @@ public class updatePessoaServlet extends HttpServlet {
             response.sendRedirect("pages/home.jsp");
         } catch (Exception e) {
             session.setAttribute(
-                    "updateError",
+                    "perfilError",
                     "Ocorreu uma falha ao tentar atualizar seus dados pessoais, "
                     + "verifique os dados inseridos e tente novamente.");
 

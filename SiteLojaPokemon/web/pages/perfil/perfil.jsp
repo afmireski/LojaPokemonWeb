@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="../../styles/navigation.css">
         <link rel="stylesheet" href="../../styles/components.css">
         <link rel="stylesheet" href="../../styles/perfil.css">
+        <link rel="stylesheet" href="../../styles/messages.css">
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
@@ -55,7 +56,7 @@
 
         <!-- Mensagem de Erro -->
         <%
-            String errorMessage = (String) session.getAttribute("updateError");
+            String errorMessage = (String) session.getAttribute("perfilError");
 
             if (errorMessage != null && !errorMessage.trim().isEmpty()) {
                 session.removeAttribute("updateError");
@@ -167,6 +168,12 @@
                 </div>
             </fieldset>
 
+            <div class="tile" style=" color: red;" id="excluir-tile">
+                <span class="material-icons" style="margin-right: 5px;">
+                    person_off
+                </span>
+                <div style="display: flex; align-self: center;">Excluir conta</div>
+            </div>
             <div class="tile" style=" color: red;" onclick="logout()">
                 <span class="material-icons" style="margin-right: 5px;">
                     logout
@@ -292,6 +299,29 @@
             </form>
         </div>
 
+        <!-- MODAL EXCLUIR CONTA -->
+        <div class="modal" id="excluir-conta-modal">            
+            <div class="modal-box">
+                <div class="flex-row end">
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="flex-row center">
+                    <h1 class="excluir-title">Excluir conta</h1>
+                </div>
+                <div class="flex-row center">
+                    <p>Deseja mesmo excluir sua conta?</p>
+                </div>
+                <div class="flex-row space-between">
+                    <button type="button" class="no-delete-button" id="btn-cancel">
+                        Cancelar
+                    </button>
+                    <button type="button" class="delete-button" id="btn-excluir-conta" onclick="excluirConta()">
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <script>
             //Form Endereço
             var end_form = document.getElementById("end-form");
@@ -359,6 +389,27 @@
                 user_form.style.display = "none";
             }
 
+            // Excluir Conta
+            var excluir_modal = document.getElementById("excluir-conta-modal");
+
+            var btn_cancel = document.getElementById("btn-cancel");
+
+            var close_excluir = document.getElementsByClassName("close-modal")[3];
+
+            var excluir_tile = document.getElementById("excluir-tile");
+            
+            excluir_tile.onclick = function () {
+                excluir_modal.style.display = "block";
+            }
+
+            btn_cancel.onclick = function () {
+                excluir_modal.style.display = "none";
+            }
+
+            close_excluir.onclick = function () {
+                excluir_modal.style.display = "none";
+            };
+
             window.onclick = function (event) {
                 if (event.target == end_form) {
                     end_form.style.display = "none";
@@ -370,8 +421,7 @@
             }
 
         </script>
-
-        <script src="../../scripts/generalScripts.js"></script>
+        <script src="../../scripts/perfil/gerenciarConta.js"></script>
         <%
             }
         %>
