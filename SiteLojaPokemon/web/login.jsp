@@ -62,7 +62,7 @@
             <input type="password" name="txtSenha" id="txtSenha" class="giant">
         </div>
         <div class="flex-row space-between">
-            <button type="button" class="light" id="cad" name="cad">Cadastra-se</button>
+            <button type="button" class="light" id="cad" name="cad">Cadastrar-se</button>
             <button type="submit" class="dark" id="log" name="log">Login</button>
         </div>
     </form>
