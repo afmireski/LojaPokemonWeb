@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -13,24 +14,24 @@
 </head>
 
 <body class="out-sys">
-    <form action="cadastro_pessoa.jsp" method="post" class="form-box">
+    <form action="../../prossegueEnderecoServlet" method="post" class="form-box">
         <legend>Endereço</legend>
         <fieldset>
             <div class="flex-row form-row">
                 <div class="flex-column small-space">
                     <label for="txtCEP">CEP</label>
-                    <input type="text" class="medium" id="txtCEP" name="txtCEP" maxlength="8">
+                    <input type="text" class="medium" id="txtCEP" name="txtCEP" maxlength="8" required>
                 </div>
                 <div class="flex-column large-space">
                     <label for="txtDesc">Descrição</label>
-                    <input type="text" class="large" id="txtDesc" name="txtDesc">
+                    <input type="text" class="large" id="txtDesc" name="txtDesc" required>
                 </div>
             </div>
 
             <div class="flex-row form-row">
                 <div class="flex-column large-space">
                     <label for="txtCidade">Cidade</label>
-                    <input type="text" class="large" id="txtCidade" name="txtCidade">
+                    <input type="text" class="large" id="txtCidade" name="txtCidade" required>
                 </div>
                 <div class="flex-column medium-space">
                     <label for="txtEstado">Estado</label>
@@ -61,12 +62,12 @@
                         <option value="24">São Paulo - SP</option>
                         <option value="25">Sergipe - SE</option>
                         <option value="26">Tocantins - TO</option>
-                        <option value="0">Distrito Federal - DF</option>
+                        <option value="27">Distrito Federal - DF</option>
                     </select>
                 </div>
                 <div class="flex-column uniforme-space">
                     <label for="txtNCasa">Nº Casa</label>
-                    <input type="number" class="medium" id="txtNCasa" name="txtNCasa" >
+                    <input type="number" class="medium" id="txtNCasa" name="txtNCasa" required>
                 </div>
             </div>
             <div class="flex-row form-row end">                

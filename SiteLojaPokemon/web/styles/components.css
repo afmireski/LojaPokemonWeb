@@ -47,6 +47,12 @@
       margin-bottom: 10px;    
   }
 
+  span.step-icon {
+    color: purple;
+    font-size: 64px;  
+    margin-bottom: 10px;    
+}
+
   /* Alert Containers */
 
   .message-box {

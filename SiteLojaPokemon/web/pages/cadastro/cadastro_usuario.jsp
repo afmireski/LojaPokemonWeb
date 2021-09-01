@@ -8,9 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-        <link rel="stylesheet" href="styles/style.css">
-        <link rel="stylesheet" href="styles/flexbox.css">
-        <link rel="stylesheet" href="styles/components.css">
+        <link rel="stylesheet" href="../../styles/style.css">
+        <link rel="stylesheet" href="../../styles/flexbox.css">
+        <link rel="stylesheet" href="../../styles/components.css">
 
 
         <title>Loja Pokémon</title>
@@ -26,10 +26,11 @@
     <body class="out-sys">
         <h1>Bem-vindo à Loja Pokémon</h1>
 
-        <%--
-            String errorMessage = (String) request.getAttribute("loginError");
+        <%
+            String errorMessage = (String) session.getAttribute("cadUserError");
 
             if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+                session.removeAttribute("cadUserError");
         %>
         <div class="flex-row center">
             <div class="error-message">
@@ -41,23 +42,23 @@
         </div>
         <%
             }
-        --%>
+        %>
 
         <form action="../../cadastroUsuarioServlet" method="post" class="login-box">        
             <div class="flex-column start form-row">
-                <label for="txtEmail">E-mail</label>
-                <input type="email" name="txtEmail" id="txtEmail" class="giant">
+                <label for="txtCadEmail">E-mail</label>
+                <input type="email" name="txtCadEmail" id="txtCadEmail" class="giant" required>
             </div>
             <div class="flex-column start form-row">
-                <label for="txtSenha">Senha</label>
-                <input type="password" name="txtSenha" id="txtSenha" class="giant">
+                <label for="txtCadSenha">Senha</label>
+                <input type="password" name="txtCadSenha" id="txtCadSenha" class="giant" required>
             </div>
             <div class="flex-column start form-row">
-                <label for="txtConfSenha">Confirmar senha</label>
-                <input type="password" name="txtConfSenha" id="txtConfSenha" class="giant">
+                <label for="txtCadConfSenha">Confirmar senha</label>
+                <input type="password" name="txtCadConfSenha" id="txtCadConfSenha" class="giant" required>
             </div>
             <div class="flex-row space-between">
-                <button type="submit" class="light" id="cad" name="cad">Cadastrar-se</button>
+                <button type="submit" class="light" id="cad_user" name="cad_user">Cadastrar-se</button>
             </div>
         </form>     
     </body>

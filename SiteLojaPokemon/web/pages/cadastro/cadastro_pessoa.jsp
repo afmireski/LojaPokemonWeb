@@ -14,31 +14,41 @@
 
     </head>
     <body>
-        <%--
-           String txtCEP = request.getParameter("txtCEP");
-           int txtNCasa = Integer.valueOf(request.getParameter("txtNCasa")); 
-           
-           Endereco endereco = new Endereco();
-           endereco.setEnderecoPK(new EnderecoPK(txtCEP, txtNCasa));
-        --%> 
-        <form action="cadastroUsuario.jsp" method="post" class="form-box">
+        <%
+            String errorMessage = (String) session.getAttribute("cadPesError");
+
+            if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+                session.removeAttribute("cadPesError");
+        %>
+        <div class="flex-row center">
+            <div class="error-message">
+                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">
+                    &times;
+                </span>
+                <%=(errorMessage)%>
+            </div>
+        </div>
+        <%
+            }
+        %>
+        <form action="../../prosseguePessoaServlet" method="post" class="form-box">
             <legend>Dados Pessoais</legend>
             <fieldset>
                 <div class="flex-row form-row">
                     <div class="flex-column small-space">
                         <label for="txtCPF">CPF</label>
-                        <input type="text" class="medium" id="txtCPF" name="txtCPF" maxlength="11">
+                        <input type="text" class="medium" id="txtCPF" name="txtCPF" maxlength="11" minlength="11" required>
                     </div>
                     <div class="flex-column large-space">
-                        <label for="txtDesc">Nome</label>
-                        <input type="text" class="large" id="txtNome" name="txtNome">
+                        <label for="txtNome">Nome</label>
+                        <input type="text" class="large" id="txtNome" name="txtNome" required>
                     </div>
                 </div>
     
                 <div class="flex-row form-row">
                     <div class="flex-column large-space">
                         <label for="txtDataNascimento">Data de Nascimento</label>
-                        <input type="text" class="medium" id="txtDataNascimento" name="txtDataNascimento">
+                        <input type="date" class="medium" id="txtDataNascimento" name="txtDataNascimento" required>
                     </div>
                     <div class="flex-column medium-space">
                         <label for="txtSexo">Sexo</label>

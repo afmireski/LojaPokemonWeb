@@ -5,15 +5,10 @@
  */
 package servlets.insertData;
 
-import daos.DAOEndereco;
-import daos.DAOPessoa;
-import daos.DAOUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,15 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Endereco;
 import models.Pessoa;
-import static models.Pessoa_.endereco;
-import models.Usuario;
 
 /**
  *
- * @author aacor
+ * @author AFMireski
  */
-@WebServlet(name = "cadastroUsuarioServlet", urlPatterns = {"/cadastroUsuarioServlet"})
-public class cadastroUsuarioServlet extends HttpServlet {
+@WebServlet(name = "prosseguePessoaServlet", urlPatterns = {"/prosseguePessoaServlet"})
+public class prosseguePessoaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,10 +42,10 @@ public class cadastroUsuarioServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet cadastroUsuarioServlet</title>");
+            out.println("<title>Servlet prosseguePessoaServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet cadastroUsuarioServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet prosseguePessoaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -87,61 +80,31 @@ public class cadastroUsuarioServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
-            String txtEmail = request.getParameter("txtCadEmail");
-            String txtSenha = request.getParameter("txtCadSenha");
-            String txtConfSenha = request.getParameter("txtCadConfSenha");
             try {
-                DAOUsuario daoUsuario = new DAOUsuario();
+                Endereco endereco = (Endereco) session.getAttribute("end");
 
-                if (daoUsuario.getUsuarioByEmail(txtEmail) == null) {
-                    if (txtSenha.equals(txtConfSenha)) {
-                        //INSERIR DADOS DE ENDEREÇO
-                        Endereco endereco = (Endereco) session.getAttribute("end");
+                final String txtCPF = request.getParameter("txtCPF");
+                final String txtNome = request.getParameter("txtNome");
+                final Date txtDataNascimento = new SimpleDateFormat("yyyy-MM-dd").parse((String) request.getParameter("txtDataNascimento"));
+                final String txtSexo = request.getParameter("txtSexo");
 
-                        final DAOEndereco daoEndereco = new DAOEndereco();
-                        daoEndereco.insert(endereco);
+                Pessoa pessoa = new Pessoa();
+                pessoa.setCpf(txtCPF);
+                pessoa.setNome(txtNome);
+                pessoa.setDataNascimento(txtDataNascimento);
+                pessoa.setSexo(txtSexo.substring(0, 1));
+                pessoa.setSexoDescricao(txtSexo);
+                pessoa.setEndereco(endereco);
 
-                        //INSERIR DADOS DE PESSOA
-                        Pessoa pessoa = (Pessoa) session.getAttribute("pes");
-
-                        DAOPessoa daoPessoa = new DAOPessoa();
-                        daoPessoa.insert(pessoa);
-
-                        //CRIAR USUÁRIO            
-                        Usuario usuario = new Usuario();
-
-                        usuario.setEmail(txtEmail);
-                        usuario.setSenha(txtSenha);
-                        usuario.setAtivo(true);
-                        usuario.setDataCriacao(new Date());
-                        usuario.setPessoaCPF(pessoa);
-
-                        daoUsuario.insert(usuario);
-
-                        session.invalidate();
-
-                        response.sendRedirect("login.jsp");
-                    } else {
-                        session.setAttribute(
-                                "cadUserError",
-                                "A confirmação de senha não está de acordo com a senha informada!");
-
-                        response.sendRedirect("pages/cadastro/cadastro_usuario.jsp");
-                    }
-                } else {
-                    session.setAttribute(
-                            "cadUserError",
-                            "Esse endereço de e-mail já se encontra cadastrado no nosso sistema!");
-
-                    response.sendRedirect("pages/cadastro/cadastro_usuario.jsp");
-
-                }
-            } catch (Exception e) {
-                session.setAttribute(
-                        "cadUserError",
-                        "Houve uma falha ao tentarmos cadastrar o seu usuário!");
+                session.setAttribute("pes", pessoa);
 
                 response.sendRedirect("pages/cadastro/cadastro_usuario.jsp");
+            } catch (Exception ex) {
+                session.setAttribute(
+                                "cadPesError",
+                                "Houve uma falhar ao validarmos seus dados pessoais, verifique suas informações!");
+                
+                response.sendRedirect("pages/cadastro/cadastro_pessoa.jsp");
             }
         } else {
             response.sendRedirect("messages_pages/jump_step.html");
