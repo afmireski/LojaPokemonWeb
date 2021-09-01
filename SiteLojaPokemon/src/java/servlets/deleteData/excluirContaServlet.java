@@ -50,7 +50,7 @@ public class excluirContaServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        if (session != null) {
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
             try {
                 final Usuario usuario = (Usuario) session.getAttribute("user");
                                 

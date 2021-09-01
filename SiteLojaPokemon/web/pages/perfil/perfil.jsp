@@ -23,22 +23,14 @@
     <body>
 
         <%
-            Usuario usuario = (Usuario) session.getAttribute("user");
+            if (session == null || !session.getId().equals((String) session.getAttribute("sisID"))) {
+                response.sendRedirect("../../messages_pages/no_power.html");
+            } else {
+                Usuario usuario = (Usuario) session.getAttribute("user");
 
-            if (usuario == null) {
-        %>
-        <div class="message-box">       
-            <div class="flex-row center">
-                <span class="material-icons error-icon">
-                    privacy_tip
-                </span>
-            </div>
-            <div class="flex-row center">
-                Você não tem poder aqui! Saía de meus domínios ou sofrerá as consequências!
-            </div>
-        </div>
-        <%
-        } else {
+                if (usuario == null) {
+                    response.sendRedirect("../../messages_pages/no_power.html");
+                } else {
         %>
         <header class="store-header">
             <div class="flex-row center">            
@@ -397,7 +389,7 @@
             var close_excluir = document.getElementsByClassName("close-modal")[3];
 
             var excluir_tile = document.getElementById("excluir-tile");
-            
+
             excluir_tile.onclick = function () {
                 excluir_modal.style.display = "block";
             }
@@ -423,7 +415,8 @@
         </script>
         <script src="../../scripts/perfil/gerenciarConta.js"></script>
         <%
+                }
             }
-        %>
+        %>        
     </body>
 </html>

@@ -10,10 +10,7 @@ import daos.DAOPessoa;
 import daos.DAOUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Endereco;
 import models.Pessoa;
-import static models.Pessoa_.endereco;
 import models.Usuario;
 
 /**
@@ -70,7 +66,7 @@ public class cadastroUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -86,7 +82,7 @@ public class cadastroUsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        if (session != null) {
+        if (session != null && session.getId().equals((String) session.getAttribute("cadID"))) {
             String txtEmail = request.getParameter("txtCadEmail");
             String txtSenha = request.getParameter("txtCadSenha");
             String txtConfSenha = request.getParameter("txtCadConfSenha");
@@ -156,6 +152,7 @@ public class cadastroUsuarioServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
+//        Não precisa alterar
         return "Short description";
     }// </editor-fold>
 

@@ -15,10 +15,14 @@
     </head>
     <body>
         <%
-            String errorMessage = (String) session.getAttribute("cadPesError");
-
-            if (errorMessage != null && !errorMessage.trim().isEmpty()) {
-                session.removeAttribute("cadPesError");
+            if (session == null || !session.getId().equals((String) session.getAttribute("cadID"))) {
+                response.sendRedirect("../../messages_pages/jump_step.html");
+            } else {
+                
+            
+                String errorMessage = (String) session.getAttribute("cadPesError");
+                if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+                    session.removeAttribute("cadPesError");
         %>
         <div class="flex-row center">
             <div class="error-message">
@@ -28,9 +32,9 @@
                 <%=(errorMessage)%>
             </div>
         </div>
-        <%
-            }
-        %>
+            <%
+                }
+            %>
         <form action="../../prosseguePessoaServlet" method="post" class="form-box">
             <legend>Dados Pessoais</legend>
             <fieldset>
@@ -63,6 +67,9 @@
                 </div>
             </fieldset>        
         </form>
+        <%
+            }
+        %>
 
     </body>
 </html>

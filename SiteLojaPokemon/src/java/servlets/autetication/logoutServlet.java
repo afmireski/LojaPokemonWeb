@@ -61,7 +61,7 @@ public class logoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         
-        if (session != null) {
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
             session.invalidate();
 
             response.sendRedirect("login.jsp");

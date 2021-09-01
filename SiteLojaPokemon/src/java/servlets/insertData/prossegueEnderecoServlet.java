@@ -61,7 +61,7 @@ public class prossegueEnderecoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -98,6 +98,7 @@ public class prossegueEnderecoServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setMaxInactiveInterval(600);
             session.setAttribute("end", endereco);
+            session.setAttribute("cadID", session.getAttribute("cadID"));
 
             response.sendRedirect("pages/cadastro/cadastro_pessoa.jsp");
         } catch (Exception ex) {

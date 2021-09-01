@@ -62,8 +62,8 @@ public class prosseguePessoaServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {        
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -79,7 +79,7 @@ public class prosseguePessoaServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        if (session != null) {
+        if (session != null && session.getId().equals((String) session.getAttribute("cadID"))) {
             try {
                 Endereco endereco = (Endereco) session.getAttribute("end");
 

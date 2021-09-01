@@ -63,7 +63,7 @@ public class updateEnderecoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -77,47 +77,50 @@ public class updateEnderecoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        final String[] estados = {"ACRE", "ALAGOAS", "AMAPÁ", "AMAZONAS", "BAHIA", "CEARÁ",
-            "ESPÍRITO SANTO", "GOÍAS", "MARANHÃO", "MATO GROSSO", "MATO GROSSO DO SUL",
-            "MINAS GERAIS", "PARÁ", "PARAÍBA", "PARANÁ", "PERNAMBUCO", "PIAUÍ", "RIO DE JANEIRO",
-            "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "RONDÔNIA", "RORAIMA", "SANTA CATARINA",
-            "SÃO PAULO", "SERGIPE", "TOCANTINS", "DISTRITO FEDERAL"};
-
-        final String enderecoDescricao = request.getParameter("txtDesc");
-        final String enderecoCidade = request.getParameter("txtCidade");
-        final Integer enderecoEstado = Integer.valueOf(request.getParameter("txtEstado"));
-
         final HttpSession session = request.getSession();
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
+            final String[] estados = {"ACRE", "ALAGOAS", "AMAPÁ", "AMAZONAS", "BAHIA", "CEARÁ",
+                "ESPÍRITO SANTO", "GOÍAS", "MARANHÃO", "MATO GROSSO", "MATO GROSSO DO SUL",
+                "MINAS GERAIS", "PARÁ", "PARAÍBA", "PARANÁ", "PERNAMBUCO", "PIAUÍ", "RIO DE JANEIRO",
+                "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "RONDÔNIA", "RORAIMA", "SANTA CATARINA",
+                "SÃO PAULO", "SERGIPE", "TOCANTINS", "DISTRITO FEDERAL"};
 
-        final Usuario usuario = (Usuario) session.getAttribute("user");
+            final String enderecoDescricao = request.getParameter("txtDesc");
+            final String enderecoCidade = request.getParameter("txtCidade");
+            final Integer enderecoEstado = Integer.valueOf(request.getParameter("txtEstado"));
 
-        final Endereco newEndereco = new Endereco(
-                usuario.getPessoaCPF().getEndereco().getEnderecoPK(),
-                enderecoDescricao,
-                enderecoCidade,
-                enderecoEstado,
-                estados[enderecoEstado - 1]);
+            final Usuario usuario = (Usuario) session.getAttribute("user");
 
-        final DAOEndereco daoEndereco = new DAOEndereco();
+            final Endereco newEndereco = new Endereco(
+                    usuario.getPessoaCPF().getEndereco().getEnderecoPK(),
+                    enderecoDescricao,
+                    enderecoCidade,
+                    enderecoEstado,
+                    estados[enderecoEstado - 1]);
 
-        try {
-            daoEndereco.update(newEndereco);
+            final DAOEndereco daoEndereco = new DAOEndereco();
 
-            DAOUsuario daoUsuario = new DAOUsuario();
+            try {
+                daoEndereco.update(newEndereco);
 
-            session.setAttribute("user", daoUsuario.get(usuario.getId()));
+                DAOUsuario daoUsuario = new DAOUsuario();
 
-            response.sendRedirect("pages/home.jsp");
+                session.setAttribute("user", daoUsuario.get(usuario.getId()));
 
-        } catch (Exception e) {
-            session.setAttribute(
-                    "perfilError",
-                    "Ocorreu uma falha ao tentar atualizar seu endereço, "
-                    + "verifique os dados inseridos e tente novamente.");
+                response.sendRedirect("pages/home.jsp");
 
-            response.sendRedirect("pages/perfil/perfil.jsp");
+            } catch (Exception e) {
+                session.setAttribute(
+                        "perfilError",
+                        "Ocorreu uma falha ao tentar atualizar seu endereço, "
+                        + "verifique os dados inseridos e tente novamente.");
+
+                response.sendRedirect("pages/perfil/perfil.jsp");
+            }
+        } else {
+            response.sendRedirect("messages_pages/unknown.html");
         }
+
     }
 
     /**

@@ -20,17 +20,21 @@
                 text-align: center;
             }
         </style>
-        
+
     </head>
 
     <body class="out-sys">
         <h1>Bem-vindo à Loja Pokémon</h1>
 
         <%
-            String errorMessage = (String) session.getAttribute("cadUserError");
+            if (session == null || !session.getId().equals((String) session.getAttribute("cadID"))) {
+                response.sendRedirect("../../messages_pages/jump_step.html");
+            } else {
 
-            if (errorMessage != null && !errorMessage.trim().isEmpty()) {
-                session.removeAttribute("cadUserError");
+                String errorMessage = (String) session.getAttribute("cadUserError");
+
+                if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+                    session.removeAttribute("cadUserError");
         %>
         <div class="flex-row center">
             <div class="error-message">
@@ -60,7 +64,10 @@
             <div class="flex-row space-between">
                 <button type="submit" class="light" id="cad_user" name="cad_user">Cadastrar-se</button>
             </div>
-        </form>     
+        </form>   
+        <%
+            }
+        %>
     </body>
 
 </html>

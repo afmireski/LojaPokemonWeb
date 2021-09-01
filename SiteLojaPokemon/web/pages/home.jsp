@@ -22,36 +22,31 @@
 
     <body>
         <%
-            Usuario usuario = (Usuario) session.getAttribute("user");
-            if (usuario == null) {
+            if (session == null || !session.getId().equals((String) session.getAttribute("sisID"))) {
+//                Condição de invasão
+                response.sendRedirect("../messages_pages/no_power.html");
+            } else {
+
+                Usuario usuario = (Usuario) session.getAttribute("user");
+                if (usuario == null) {
+                    response.sendRedirect("../messages_pages/no_power.html");
+                } else {
         %>
-        <div class="message-box">       
+        <header class="store-header">
             <div class="flex-row center">
-                <span class="material-icons error-icon">
-                    privacy_tip
-                </span>
+                <h1>Olá, <%=(usuario.getPessoaCPF().getNome())%>!!! Bem-vindo(a) à Loja Pokémon </h1>
             </div>
-            <div class="flex-row center">
-                Você não tem poder aqui! Saía de meus domínios ou sofrerá as consequências!
+            <div class="flex-row start">
+                <ul class="menu">
+                    <li><a href="home.html" class="active-index">Home</a></li>
+                    <li><a href="">Loja</a></li>
+                    <li><a href="">Pagamentos</a></li>
+                    <li><a href="perfil/perfil.jsp">Perfil</a></li>
+                </ul>
             </div>
-        </div>
+        </header>
         <%
-        } else {
-        %>
-            <header class="store-header">
-                <div class="flex-row center">
-                    <h1>Olá, <%=(usuario.getPessoaCPF().getNome())%>!!! Bem-vindo(a) à Loja Pokémon </h1>
-                </div>
-                <div class="flex-row start">
-                    <ul class="menu">
-                        <li><a href="home.html" class="active-index">Home</a></li>
-                        <li><a href="">Loja</a></li>
-                        <li><a href="">Pagamentos</a></li>
-                        <li><a href="perfil/perfil.jsp">Perfil</a></li>
-                    </ul>
-                </div>
-            </header>
-        <%
+                }
             }
         %>
 

@@ -9,7 +9,6 @@ import daos.DAOUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +62,7 @@ public class updateUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -77,58 +76,63 @@ public class updateUsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final String txtEmail = request.getParameter("txtEmail");
-        final String txtVSenha = request.getParameter("txtVSenha");
-        final String txtNovaSenha = request.getParameter("txtNovaSenha");
-        final String txtConfirmaNovaSenha = request.getParameter("txtConfirmaNovaSenha");
 
         final HttpSession session = request.getSession();
 
-        final Usuario usuario = (Usuario) session.getAttribute("user");
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
+            final String txtEmail = request.getParameter("txtEmail");
+            final String txtVSenha = request.getParameter("txtVSenha");
+            final String txtNovaSenha = request.getParameter("txtNovaSenha");
+            final String txtConfirmaNovaSenha = request.getParameter("txtConfirmaNovaSenha");
 
-        if (txtVSenha.equals(usuario.getSenha())) {
+            final Usuario usuario = (Usuario) session.getAttribute("user");
 
-            if (txtNovaSenha.equals(txtConfirmaNovaSenha) || (txtNovaSenha.isEmpty() && txtConfirmaNovaSenha.isEmpty())) {
-                final Usuario newUsuario = new Usuario();
+            if (txtVSenha.equals(usuario.getSenha())) {
 
-                newUsuario.setId(usuario.getId());
-                newUsuario.setEmail(txtEmail);
-                newUsuario.setAtivo(true);
-                newUsuario.setDataCriacao(new Date());
-                newUsuario.setSenha(txtNovaSenha.isEmpty() ? usuario.getSenha() : txtNovaSenha);
-                newUsuario.setPessoaCPF(usuario.getPessoaCPF());
+                if (txtNovaSenha.equals(txtConfirmaNovaSenha) || (txtNovaSenha.isEmpty() && txtConfirmaNovaSenha.isEmpty())) {
+                    final Usuario newUsuario = new Usuario();
 
-                final DAOUsuario daoUsuario = new DAOUsuario();
+                    newUsuario.setId(usuario.getId());
+                    newUsuario.setEmail(txtEmail);
+                    newUsuario.setAtivo(true);
+                    newUsuario.setDataCriacao(new Date());
+                    newUsuario.setSenha(txtNovaSenha.isEmpty() ? usuario.getSenha() : txtNovaSenha);
+                    newUsuario.setPessoaCPF(usuario.getPessoaCPF());
 
-                try {
-                    daoUsuario.update(newUsuario);
+                    final DAOUsuario daoUsuario = new DAOUsuario();
 
-                    session.setAttribute("user", daoUsuario.get(newUsuario.getId()));
+                    try {
+                        daoUsuario.update(newUsuario);
 
-                    response.sendRedirect("pages/home.jsp");
+                        session.setAttribute("user", daoUsuario.get(newUsuario.getId()));
 
-                } catch (Exception e) {
+                        response.sendRedirect("pages/home.jsp");
+
+                    } catch (Exception e) {
+                        session.setAttribute(
+                                "perfilError",
+                                "Ocorreu uma falha ao tentar atualizar seu usuário, "
+                                + "verifique os dados inseridos e tente novamente.");
+
+                        response.sendRedirect("pages/perfil/perfil.jsp");
+                    }
+                } else {
                     session.setAttribute(
                             "perfilError",
-                            "Ocorreu uma falha ao tentar atualizar seu usuário, "
-                            + "verifique os dados inseridos e tente novamente.");
+                            "A confirmação de senha não está de acordo com a nova senha informada.");
 
                     response.sendRedirect("pages/perfil/perfil.jsp");
                 }
+
             } else {
                 session.setAttribute(
                         "perfilError",
-                        "A confirmação de senha não está de acordo com a nova senha informada.");
+                        "A senha informada para a verificação está incorreta.");
 
                 response.sendRedirect("pages/perfil/perfil.jsp");
             }
-
         } else {
-            session.setAttribute(
-                    "perfilError",
-                    "A senha informada para a verificação está incorreta.");
-
-            response.sendRedirect("pages/perfil/perfil.jsp");
+            response.sendRedirect("messages_pages/unknown.html");
         }
     }
 

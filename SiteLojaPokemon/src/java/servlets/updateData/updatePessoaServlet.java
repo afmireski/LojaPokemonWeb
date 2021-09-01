@@ -66,7 +66,7 @@ public class updatePessoaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -80,44 +80,48 @@ public class updatePessoaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         final HttpSession session = request.getSession();
-        try {
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
+            try {
 
-            final String txtNome = request.getParameter("txtNome");
-            final String txtSexo = request.getParameter("txtSexo");
-            final Date txtDataNascimento = new SimpleDateFormat("yyyy-MM-dd").parse((String) request.getParameter("txtDataNascimento"));            
+                final String txtNome = request.getParameter("txtNome");
+                final String txtSexo = request.getParameter("txtSexo");
+                final Date txtDataNascimento = new SimpleDateFormat("yyyy-MM-dd").parse((String) request.getParameter("txtDataNascimento"));
 
-            final Usuario usuario = (Usuario) session.getAttribute("user");
+                final Usuario usuario = (Usuario) session.getAttribute("user");
 
-            final Capitalize cap = new Capitalize();
+                final Capitalize cap = new Capitalize();
 
-            Pessoa newPessoa = new Pessoa(
-                    usuario.getPessoaCPF().getCpf(),
-                    cap.removerAcentos(txtNome),
-                    txtDataNascimento,
-                    txtSexo.substring(0, 1),
-                    txtSexo
-            );
+                Pessoa newPessoa = new Pessoa(
+                        usuario.getPessoaCPF().getCpf(),
+                        cap.removerAcentos(txtNome),
+                        txtDataNascimento,
+                        txtSexo.substring(0, 1),
+                        txtSexo
+                );
 
-            newPessoa.setEndereco(usuario.getPessoaCPF().getEndereco());
+                newPessoa.setEndereco(usuario.getPessoaCPF().getEndereco());
 
-            final DAOPessoa daoPessoa = new DAOPessoa();
+                final DAOPessoa daoPessoa = new DAOPessoa();
 
-            daoPessoa.update(newPessoa);
+                daoPessoa.update(newPessoa);
 
-            DAOUsuario daoUsuario = new DAOUsuario();
+                DAOUsuario daoUsuario = new DAOUsuario();
 
-            session.setAttribute("user", daoUsuario.get(usuario.getId()));
+                session.setAttribute("user", daoUsuario.get(usuario.getId()));
 
-            response.sendRedirect("pages/home.jsp");
-        } catch (Exception e) {
-            session.setAttribute(
-                    "perfilError",
-                    "Ocorreu uma falha ao tentar atualizar seus dados pessoais, "
-                    + "verifique os dados inseridos e tente novamente.");
+                response.sendRedirect("pages/home.jsp");
+            } catch (Exception e) {
+                session.setAttribute(
+                        "perfilError",
+                        "Ocorreu uma falha ao tentar atualizar seus dados pessoais, "
+                        + "verifique os dados inseridos e tente novamente.");
 
-            response.sendRedirect("pages/perfil/perfil.jsp");
+                response.sendRedirect("pages/perfil/perfil.jsp");
+            }
+        } else {
+            response.sendRedirect("messages_pages/unknown.html");
         }
 
     }

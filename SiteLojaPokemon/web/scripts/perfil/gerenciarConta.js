@@ -1,5 +1,6 @@
 
 function excluirConta() {
+//    Sempre GET
     document.location.href = "../../excluirContaServlet";
 }
 

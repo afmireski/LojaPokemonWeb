@@ -13,7 +13,8 @@
 }
 
 .space-between {
-    justify-content: space-around;
+    /* Coloca um esoaço entre os elementos */
+    justify-content: space-between;
 }
 
 .start {
