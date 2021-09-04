@@ -151,10 +151,10 @@
 
         <!-- Pagar MODAL -->
         <div class="modal"  id="pagar-form">
-            <form action="" method="post" class="pagar-box" accept-charset="utf-8">
+            <form action="../../novaCompraServlet" method="post" class="pagar-box" accept-charset="utf-8">
                 <div class="flex-row end"><span class="close-modal">&times;</span></div>
-                <div class="flex-row start form-row">
-                    <span id="total-price" class="poke-price"></span>                 
+                <div class="flex-row start form-row poke-price">
+                    Total: R$ <span id="total-price" class=""></span>                 
                 </div>
                 <div class="flex-row start">
                     <div class="flex-column">                        
@@ -194,6 +194,8 @@
                 <div class="flex-row end">
                     <button type="submit" class="light" >Pagar</button>
                 </div>
+                <input type="hidden" name="txtPokeID" id="txtPokeID">
+                <input type="hidden" name="txtQtdP" id="txtQtdP">
             </form>
         </div>
 

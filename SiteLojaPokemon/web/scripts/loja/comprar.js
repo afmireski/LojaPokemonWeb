@@ -14,7 +14,7 @@ function show_pokemon(id, nome, tipo, estoque, preco, imagem) {
     img.alt = `${nome}`;
 
     var poke_nome = document.getElementById("poke-nome");
-    poke_nome.innerText = `${nome} - ${id}`;
+    poke_nome.innerText = `${nome}`;
 
     var poke_tipo = document.getElementById("poke-tipo");
     poke_tipo.innerHTML = tipo;
@@ -29,6 +29,9 @@ function show_pokemon(id, nome, tipo, estoque, preco, imagem) {
     poke_price.innerHTML = `R$ ${preco}`;
 
     value = preco;
+    
+    var txtPokeID = document.getElementById("txtPokeID");
+    txtPokeID.value = `${id}`;    
 
     poke_form.style.display = "block";
 }
@@ -39,7 +42,10 @@ function show_pagar() {
 
     let total = value * txtQtd.value;
 
-    total_price.innerHTML = `Total: R$ ${total}`;
+    total_price.innerHTML += `${total}`;
+    
+    var txtQtdP = document.getElementById("txtQtdP");
+    txtQtdP.value = txtQtd.value;    
 
     pagar_form.style.display = "block";
 }
