@@ -48,6 +48,12 @@
     flex: 8 1 auto;
 }
 
+/* Grid */
+.grid-view {
+    display: flex;
+    flex-flow: row wrap;
+}
+
 
 
 

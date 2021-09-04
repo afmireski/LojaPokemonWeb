@@ -1,0 +1,61 @@
+var poke_form = document.getElementById("poke-form");
+var pagar_form = document.getElementById("pagar-form");
+
+var btn_comprar = document.getElementById("btn-comprar");
+
+var close_comprar = document.getElementsByClassName("close-modal")[0];
+var close_pagar = document.getElementsByClassName("close-modal")[1];
+
+let value;
+
+function show_pokemon(id, nome, tipo, estoque, preco, imagem) {
+    var img = document.getElementById("poke-image");
+    img.src = `../..${imagem}`;
+    img.alt = `${nome}`;
+
+    var poke_nome = document.getElementById("poke-nome");
+    poke_nome.innerText = `${nome} - ${id}`;
+
+    var poke_tipo = document.getElementById("poke-tipo");
+    poke_tipo.innerHTML = tipo;
+
+    var poke_estoque = document.getElementById("poke-estoque");
+    poke_estoque.innerHTML = `Estoque: ${estoque}`;
+
+    var txtQtd = document.getElementById("txtQtd");
+    txtQtd.max =estoque;    
+
+    var poke_price = document.getElementById("poke-preco");
+    poke_price.innerHTML = `R$ ${preco}`;
+
+    value = preco;
+
+    poke_form.style.display = "block";
+}
+
+function show_pagar() {
+    var total_price = document.getElementById("total-price");
+    var txtQtd = document.getElementById("txtQtd");
+
+    let total = value * txtQtd.value;
+
+    total_price.innerHTML = `Total: R$ ${total}`;
+
+    pagar_form.style.display = "block";
+}
+
+close_comprar.onclick = function () {
+    poke_form.style.display = "none";
+}
+
+close_pagar.onclick = function () {
+    pagar_form.style.display = "none";
+}
+
+window.onclick = function (event) {
+    if (event.target == poke_form)  {
+        poke_form.style.display = "none";
+    } else if (event.target == pagar_form)  {
+        pagar_form.style.display = "none";
+    }
+}

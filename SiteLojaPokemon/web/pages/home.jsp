@@ -38,8 +38,8 @@
             </div>
             <div class="flex-row start">
                 <ul class="menu">
-                    <li><a href="home.html" class="active-index">Home</a></li>
-                    <li><a href="">Loja</a></li>
+                    <li><a href="home.jsp" class="active-index">Home</a></li>
+                    <li><a href="loja/loja.jsp">Loja</a></li>
                     <li><a href="">Pagamentos</a></li>
                     <li><a href="perfil/perfil.jsp">Perfil</a></li>
                 </ul>

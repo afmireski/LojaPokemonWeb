@@ -66,6 +66,13 @@ public class DAOPokemon extends DAOGeneric<Pokemon>{
         return em.createQuery("SELECT e from Pokemon e ORDER BY e.tipoPokemonID DESC").getResultList();
     }
     
+    public List<Pokemon> listAllPokemonsWithEstoque() {
+        return em.createQuery("SELECT e FROM Pokemon e WHERE e.estoque > 0 AND "
+                + "(SELECT COUNT(p) FROM Preco p WHERE p.precoPK.pokemonID = e.id) "
+                + "> 0", Pokemon.class).getResultList();
+    }
+            
+    
     public List<String> getFKList() {
         List<String> fks = new ArrayList<>();
         

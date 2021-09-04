@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #1991DB;
+    --secondary-color: #136FA8;
+    --primary-color-light: #5CAEE1;
+    --primary-color-dark: #26475C;
+    --secondary-color-dark: #0A3C5C;
+    --default-font: Arial, Helvetica, sans-serif;
+    --sistem-back-color: rgba(92, 174, 225, 0.7);
+    --delete-button-color: #630909;
+}
+
+main.poke-grid {
+    max-width: 60%;
+    margin: 10px;
+}
+
+.poke-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 60%;
+    min-width: 30%;
+
+    align-self: center;
+    text-align: left;
+    color: var(--secondary-color);
+}
+
+.poke-box h1 {
+    font-size: 2em;
+    color: var(--secondary-color);
+    font-weight: bolder;
+}
+
+.poke-label {
+    font-weight: 700;
+}
+
+span.poke-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color-dark);
+}
+
+.pagar-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 20%;
+    min-width: 10%;
+
+    align-self: center;
+    text-align: left;
+    color: var(--secondary-color);
+}
+
+.pagar-box h1 {
+    font-size: 2em;
+    color: var(--secondary-color);
+    font-weight: bolder;
+}

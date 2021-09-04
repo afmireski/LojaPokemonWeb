@@ -39,7 +39,7 @@
             <div class="flex-row start">
                 <ul class="menu">
                     <li><a href="../home.jsp">Home</a></li>
-                    <li><a href="">Loja</a></li>
+                    <li><a href="../loja/loja.jsp">Loja</a></li>
                     <li><a href="">Pagamentos</a></li>
                     <li><a href="perfil.jsp" class="active-index">Perfil</a></li>
                 </ul>
@@ -51,7 +51,7 @@
             String errorMessage = (String) session.getAttribute("perfilError");
 
             if (errorMessage != null && !errorMessage.trim().isEmpty()) {
-                session.removeAttribute("updateError");
+                session.removeAttribute("perfilError");
         %>
         <div class="flex-row center">
             <div class="error-message">
