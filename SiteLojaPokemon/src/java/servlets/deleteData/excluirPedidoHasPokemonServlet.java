@@ -3,36 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.insertData;
+package servlets.deleteData;
 
-import daos.DAOCartao;
 import daos.DAOPedido;
 import daos.DAOPedidoHasPokemon;
-import daos.DAOPokemon;
-import daos.DAOPreco;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Cartao;
-import models.Pedido;
 import models.PedidoHasPokemon;
 import models.PedidoHasPokemonPK;
-import models.Pokemon;
 import models.Usuario;
 
 /**
  *
  * @author AFMireski
  */
-@WebServlet(name = "novaCompraServlet", urlPatterns = {"/novaCompraServlet"})
-public class novaCompraServlet extends HttpServlet {
+@WebServlet(name = "excluirPedidoHasPokemonServlet", urlPatterns = {"/excluirPedidoHasPokemonServlet"})
+public class excluirPedidoHasPokemonServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +43,10 @@ public class novaCompraServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet novaCompraServlet</title>");
+            out.println("<title>Servlet excluirPedidoHasPokemonServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet novaCompraServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet excluirPedidoHasPokemonServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -86,70 +78,33 @@ public class novaCompraServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
 
         if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
-            Usuario usuario = (Usuario) session.getAttribute("user");
-
-            final DAOCartao daoCartao = new DAOCartao();
-            final DAOPedido daoPedido = new DAOPedido();
-            final DAOPedidoHasPokemon daoPedidoHasPokemon = new DAOPedidoHasPokemon();
-            final DAOPokemon daoPokemon = new DAOPokemon();
-            final DAOPreco daoPreco = new DAOPreco();
-
             try {
-                final String txtCartao = request.getParameter("txtCartao");
-                final Integer txtPokeID = Integer.valueOf(request.getParameter("txtPokeID"));
-                final Integer txtQtdP = Integer.valueOf(request.getParameter("txtQtdP"));
-
-                final Cartao cartao = daoCartao.get(txtCartao);
-
-                final Pokemon pokemon = daoPokemon.get(txtPokeID);
                 
-                final double valor_unitario = daoPreco.getPrecoVigenteByPokemon(pokemon.getId()).getValor();
-                final double total = txtQtdP * valor_unitario;
-
-                if (total <= cartao.getSaldo()) {
-                    Pedido pedido = new Pedido();
-
-                    pedido.setDataPedido(new Date());
-                    pedido.setUsuarioID(usuario);
-                    pedido.setCartaoID(cartao);
-                    
-                    daoPedido.insert(pedido);                     
-
-                    final PedidoHasPokemon pedidoHasPokemon = new PedidoHasPokemon(
-                            new PedidoHasPokemonPK(daoPedido.getLastPedidoID(), pokemon.getId()),
-                            txtQtdP,
-                            valor_unitario
-                    );
-                                           
-                    daoPedidoHasPokemon.insert(pedidoHasPokemon);
-                    response.sendRedirect("pages/home.jsp");
-                } else {
-                    session.setAttribute(
-                            "storeError", 
-                            "Aparentemente você não tem saldo suficiente disponível "
-                                    + "no seu cartão para concretizar essa compra, "
-                                    + "tente escolher um outro."
-                    );
-                    
-                    response.sendRedirect("pages/loja/loja.jsp");
-                }
-            } catch (Exception ex) {
+                final DAOPedidoHasPokemon daoPHP = new DAOPedidoHasPokemon();
+                
+                final Integer txtPokeID = Integer.valueOf(request.getParameter("txtPokeID"));
+                final Integer txtPedidoID = Integer.valueOf(request.getParameter("txtPedidoID"));
+                
+                final PedidoHasPokemon php = daoPHP.get(new PedidoHasPokemonPK(txtPedidoID, txtPokeID));
+                
+                daoPHP.delete(php);
+                                
+                response.sendRedirect("pages/home.jsp");
+                
+            } catch (Exception e) {
                 session.setAttribute(
-                            "storeError", 
-                            "Ocorreu uma falha ao tentarmos finalizar sua compra, "
-                                    + "tente novamente mais tarde."
-                    );
-                    
-                    response.sendRedirect("pages/loja/loja.jsp");
+                        "homeError", 
+                        "Ocorreu uma falha ao tentarmos excluir seu pedido, "
+                                + "tente novamente mais tarde.");
+                
+                response.sendRedirect("pages/home.jsp");
             }
-
         } else {
-            response.sendRedirect("messages_pages/no_power.html");
+            response.sendRedirect("messages_pages/unknown.html");
         }
-
     }
 
     /**

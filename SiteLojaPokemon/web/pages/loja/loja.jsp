@@ -29,12 +29,12 @@
         <%
             if (session == null || !session.getId().equals((String) session.getAttribute("sisID"))) {
                 //                Condição de invasão
-                response.sendRedirect("../messages_pages/no_power.html");
+                response.sendRedirect("../../messages_pages/no_power.html");
             } else {
 
                 Usuario usuario = (Usuario) session.getAttribute("user");
                 if (usuario == null) {
-                    response.sendRedirect("../messages_pages/no_power.html");
+                    response.sendRedirect("../../messages_pages/no_power.html");
                 } else {
         %>
         <header class="store-header">
@@ -78,13 +78,15 @@
             if (pokemons.isEmpty()) {
         %>
         <main class="flex-row center">
-            <div class="flex-row center">
-                <span class="material-icons default-icon">
-                    production_quantity_limits
-                </span>
-            </div>
-            <div class="flex-row center">
-                Infelizmente ainda não temos nenhum Pokémon disponível em estoque
+            <div class="message-box">
+                <div class="flex-row center">
+                    <span class="material-icons default-icon">
+                        production_quantity_limits
+                    </span>
+                </div>
+                <div class="flex-row center">
+                    Infelizmente ainda não temos nenhum Pokémon disponível em estoque
+                </div>
             </div>
         </main>
         <%
@@ -99,8 +101,8 @@
             %>            
             <div class="pokemon-card" onclick="show_pokemon(
                  <%=(pokemon.getId())%>,
-                            '<%=(pokemon.getNome())%>',
-                            '<%=(pokemon.getTipoPokemonID().getDescricao())%>',
+                 '<%=(pokemon.getNome())%>',
+                 '<%=(pokemon.getTipoPokemonID().getDescricao())%>',
                  <%=(pokemon.getEstoque())%>,
                  <%=(pokePrice)%>,
                             '<%=(pokemon.getImagem())%>'

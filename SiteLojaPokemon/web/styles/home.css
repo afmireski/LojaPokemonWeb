@@ -11,8 +11,7 @@
     --delete-button-color: #630909;
 }
 
-
-.pagar-box {
+.excluir-pedido-box {
     position: relative;
     padding: 1em;
     margin: 5% auto;
@@ -27,10 +26,4 @@
     align-self: center;
     text-align: left;
     color: var(--secondary-color);
-}
-
-.pagar-box h1 {
-    font-size: 2em;
-    color: var(--secondary-color);
-    font-weight: bolder;
 }

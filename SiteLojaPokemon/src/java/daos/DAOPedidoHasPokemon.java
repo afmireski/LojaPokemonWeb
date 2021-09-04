@@ -51,12 +51,19 @@ public class DAOPedidoHasPokemon extends DAOGeneric<PedidoHasPokemon> {
         return em.createQuery("SELECT e FROM PedidoHasPokemon e ORDER BY e.valorUnitario", PedidoHasPokemon.class).getResultList();
     }   
     
+    public List<PedidoHasPokemon> listPedidoHasPokemonsByUser(int userID) {
+        return em.createQuery(
+                "SELECT e FROM PedidoHasPokemon e WHERE e.pedido.usuarioID.id = :userID", 
+                PedidoHasPokemon.class).setParameter("userID", userID).getResultList();
+    }
+    
     
     public static void main(String[] args) {
         DAOPedidoHasPokemon daoPedidoHasPokemon = new DAOPedidoHasPokemon();
         
         daoPedidoHasPokemon.list().forEach((php) -> {
             System.out.println(php.toString());
+            System.out.println(php.getPokemon().toString());
         });
     }
  

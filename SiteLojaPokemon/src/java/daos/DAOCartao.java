@@ -55,10 +55,10 @@ public class DAOCartao extends DAOGeneric<Cartao>{
      public static void main(String[] args) {
         ///VERIFICA OS DADOS NO BANCO
         DAOCartao daoCartao = new DAOCartao();
-        List<Cartao> end = daoCartao.list();
+        List<Cartao> end = daoCartao.listCartoesByUsuario(4);
 
         end.forEach((e) -> {
-            System.out.println(e.getId() + "-" + e.getNome());
+            System.out.println(e.getId() + "-" + e.getSaldo());
         });
     }
 

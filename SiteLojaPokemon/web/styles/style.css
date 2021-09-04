@@ -167,3 +167,43 @@ margin-vertical {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+
+/* Pokemon */
+main.poke-grid {
+    max-width: 60%;
+    margin: 10px;
+}
+
+.poke-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 60%;
+    min-width: 30%;
+
+    align-self: center;
+    text-align: left;
+    color: var(--secondary-color);
+}
+
+.poke-box h1 {
+    font-size: 2em;
+    color: var(--secondary-color);
+    font-weight: bolder;
+}
+
+.poke-label {
+    font-weight: 700;
+}
+
+.poke-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color-dark);
+}
