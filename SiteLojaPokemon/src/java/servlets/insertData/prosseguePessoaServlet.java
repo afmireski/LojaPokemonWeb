@@ -5,6 +5,7 @@
  */
 package servlets.insertData;
 
+import daos.DAOPessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -62,7 +63,7 @@ public class prosseguePessoaServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException {
         response.sendRedirect("messages_pages/unknown.html");
     }
 
@@ -88,22 +89,32 @@ public class prosseguePessoaServlet extends HttpServlet {
                 final Date txtDataNascimento = new SimpleDateFormat("yyyy-MM-dd").parse((String) request.getParameter("txtDataNascimento"));
                 final String txtSexo = request.getParameter("txtSexo");
 
-                Pessoa pessoa = new Pessoa();
-                pessoa.setCpf(txtCPF);
-                pessoa.setNome(txtNome);
-                pessoa.setDataNascimento(txtDataNascimento);
-                pessoa.setSexo(txtSexo.substring(0, 1));
-                pessoa.setSexoDescricao(txtSexo);
-                pessoa.setEndereco(endereco);
+                final DAOPessoa daoPessoa = new DAOPessoa();
 
-                session.setAttribute("pes", pessoa);
+                if (daoPessoa.get(txtCPF) == null) {
+                    Pessoa pessoa = new Pessoa();
+                    pessoa.setCpf(txtCPF);
+                    pessoa.setNome(txtNome);
+                    pessoa.setDataNascimento(txtDataNascimento);
+                    pessoa.setSexo(txtSexo.substring(0, 1));
+                    pessoa.setSexoDescricao(txtSexo);
+                    pessoa.setEndereco(endereco);
 
-                response.sendRedirect("pages/cadastro/cadastro_usuario.jsp");
+                    session.setAttribute("pes", pessoa);
+
+                    response.sendRedirect("pages/cadastro/cadastro_usuario.jsp");
+                } else {
+                    session.setAttribute(
+                            "cadPesError",
+                            "Esse CPF já se encontra cadastrado em nosso sistema, verifique os seus dados!");
+
+                    response.sendRedirect("pages/cadastro/cadastro_pessoa.jsp");
+                }
             } catch (Exception ex) {
                 session.setAttribute(
-                                "cadPesError",
-                                "Houve uma falhar ao validarmos seus dados pessoais, verifique suas informações!");
-                
+                        "cadPesError",
+                        "Houve uma falhar ao validarmos seus dados pessoais, verifique suas informações!");
+
                 response.sendRedirect("pages/cadastro/cadastro_pessoa.jsp");
             }
         } else {

@@ -11,6 +11,7 @@
 
         <link rel="stylesheet" href="../../styles/style.css">
         <link rel="stylesheet" href="../../styles/flexbox.css">
+        <link rel="stylesheet" href="../../styles/components.css">
 
     </head>
     <body>
