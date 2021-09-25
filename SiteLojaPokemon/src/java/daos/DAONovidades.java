@@ -26,6 +26,11 @@ public class DAONovidades extends DAOGeneric<Novidades>{
         return em.createQuery("SELECT e FROM Novidades e ORDER BY e.id").getResultList();
     }
     
+    public Novidades getUltimaNovidade(){
+        List<Novidades> lista = em.createQuery("SELECT e FROM Novidades e ORDER BY e.id desc").getResultList(); 
+        return lista.isEmpty()?null:lista.get(0); 
+    }
+    
     public static void main(String[] args) {
         ///VERIFICA OS DADOS NO BANCO
         DAONovidades daoNovidades = new DAONovidades();

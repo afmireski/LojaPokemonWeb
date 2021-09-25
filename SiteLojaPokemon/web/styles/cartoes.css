@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #1991DB;
+    --secondary-color: #136FA8;
+    --primary-color-light: #5CAEE1;
+    --primary-color-dark: #26475C;
+    --secondary-color-dark: #0A3C5C;
+    --default-font: Arial, Helvetica, sans-serif;
+    --sistem-back-color: rgba(92, 174, 225, 0.7);
+    --delete-button-color: #630909;
+}
+
+.cartao-card{
+    position: relative;
+    padding: 10px;
+    margin: 5px;
+    text-align: left;
+    border-radius: 10px;
+
+    background-color: white;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+    max-width: 50%;
+    min-width: 20%;
+    max-height: 120px;
+    color: black;     
+}
+
+.cartao-card h1{
+    color: black;
+    font-size: 1em;
+}
+
+.card-button{
+    font-size: 8px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.cartao-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 55%;
+    min-width: 300px;
+
+    align-self: center;
+    text-align: left;
+    color: var(--primary-color-dark);
+}
+
+.cartao-box label {
+    font-weight: bold;
+    font-size: 1em; /*16px*/
+    color: var(--secondary-color);    
+}
+
+.cartao-box h1{
+    color: black;
+    font-size: 1em;
+}
+
+.excluir-cartao-box {
+    position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 20%;
+    min-width: 10%;
+
+    align-self: center;
+    text-align: left;
+    color: var(--secondary-color);
+}

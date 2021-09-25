@@ -59,6 +59,6 @@ close_excluir.onclick = function () {
 
 window.onclick = function (event) {
     if (event.target == pedido_form)  {
-        pedido_formstyle.display = "none";
+        pedido_form.style.display = "none";
     } 
 }

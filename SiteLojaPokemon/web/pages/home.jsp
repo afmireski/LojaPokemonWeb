@@ -1,3 +1,5 @@
+<%@page import="models.Novidades"%>
+<%@page import="daos.DAONovidades"%>
 <%@page import="models.Pedido"%>
 <%@page import="models.Pokemon"%>
 <%@page import="daos.DAOPedido"%>
@@ -48,7 +50,7 @@
                 <ul class="menu">
                     <li><a href="home.jsp" class="active-index">Home</a></li>
                     <li><a href="loja/loja.jsp">Loja</a></li>
-                    <li><a href="">Pagamentos</a></li>
+                    <li><a href="cartoes/cartoes.jsp">Cartões</a></li>
                     <li><a href="perfil/perfil.jsp">Perfil</a></li>
                 </ul>
             </div>
@@ -72,6 +74,25 @@
         <%
             }
         %>
+
+        <%
+            final DAONovidades daoNovidades = new DAONovidades();
+            final Novidades novidade = daoNovidades.getUltimaNovidade();
+            if (novidade != null) {
+        %>
+        <div class="flex-column novidades-box">
+            <h1>
+                <%=(novidade.getTitulo())%>
+            </h1>
+            <div class="flex-row start">
+                <%=(novidade.getDescricao())%>
+            </div>
+        </div>
+        <%
+
+            }
+        %>        
+
         <h1 style="margin-bottom: 20px; margin-left: 10px;">Seus Pokémons</h1>
         <%
             final DAOPedidoHasPokemon daoPhp = new DAOPedidoHasPokemon();
@@ -92,7 +113,7 @@
             </div>            
         </main>
         <%
-            } else {
+        } else {
         %>  
         <main class="poke-grid grid-view start">
             <%
@@ -101,22 +122,22 @@
                     Pokemon pokemon = daoPokemom.get(php.getPedidoHasPokemonPK().getPokemonID());
             %>
             <div class="pokemon-card" onclick="show_detalhes_pedido(
-                <%=(php.getPedidoHasPokemonPK().getPokemonID())%>,
-                <%=(php.getPedidoHasPokemonPK().getPedidoID())%>,
-                '<%=(pokemon.getNome())%>',
-                '<%=(pokemon.getTipoPokemonID().getDescricao())%>',
-                <%=(php.getQuantidade())%>,
-                <%=(php.getValorUnitario())%>,
-                '<%=(pokemon.getImagem())%>',
-            )">
-               <div class="flex-row center">
-                   <img class="pokemon-img-small" src="../<%=(pokemon.getImagem())%>" alt="<%=(pokemon.getNome())%>">
-               </div>
-               <div class="flex-column start">
-                   <h1 class="pokemon-title" id="card-title"><%=(pokemon.getNome())%></h1>
-                   <span><%=(pokemon.getTipoPokemonID().getDescricao())%></span>
-               </div>
-           </div>
+                 <%=(php.getPedidoHasPokemonPK().getPokemonID())%>,
+                 <%=(php.getPedidoHasPokemonPK().getPedidoID())%>,
+                            '<%=(pokemon.getNome())%>',
+                            '<%=(pokemon.getTipoPokemonID().getDescricao())%>',
+                 <%=(php.getQuantidade())%>,
+                 <%=(php.getValorUnitario())%>,
+                            '<%=(pokemon.getImagem())%>',
+                            )">
+                <div class="flex-row center">
+                    <img class="pokemon-img-small" src="../<%=(pokemon.getImagem())%>" alt="<%=(pokemon.getNome())%>">
+                </div>
+                <div class="flex-column start">
+                    <h1 class="pokemon-title" id="card-title"><%=(pokemon.getNome())%></h1>
+                    <span><%=(pokemon.getTipoPokemonID().getDescricao())%></span>
+                </div>
+            </div>
             <%
                 }
 

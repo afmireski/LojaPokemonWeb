@@ -17,6 +17,11 @@
     justify-content: space-between;
 }
 
+.space-around {
+    /* Coloca um esoaço entre os elementos */
+    justify-content: space-around;
+}
+
 .start {
     justify-content: flex-start;
     text-align: start;

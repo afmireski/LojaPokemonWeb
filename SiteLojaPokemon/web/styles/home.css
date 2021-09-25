@@ -27,3 +27,22 @@
     text-align: left;
     color: var(--secondary-color);
 }
+
+.novidades-box{
+    position: relative;
+    padding: 10px;
+    margin: 10px 5px;
+    text-align: left;
+    border-radius: 10px;
+
+    background-color: white;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+    max-width: 90%;
+    min-width: 70%;
+    color: black;     
+}
+
+.novidades-box h1{
+    color: black;
+    font-size: 1em;
+}
