@@ -47,7 +47,7 @@
                 <ul class="menu">
                     <li><a href="../home.jsp">Home</a></li>
                     <li><a href="loja.jsp" class="active-index">Loja</a></li>
-                    <li><a href="">Pagamentos</a></li>
+                    <li><a href="../cartoes/cartoes.jsp">Cartões</a></li>
                     <li><a href="../perfil/perfil.jsp">Perfil</a></li>
                 </ul>
             </div>

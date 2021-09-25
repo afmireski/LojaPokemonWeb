@@ -13,13 +13,17 @@
 }
 
 .space-between {
-    /* Coloca um esoaço entre os elementos */
+    /* Coloca um espaço entre os elementos */
     justify-content: space-between;
 }
 
 .space-around {
-    /* Coloca um esoaço entre os elementos */
+    /* Coloca um espaço envolta dos elementos */
     justify-content: space-around;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
 }
 
 .start {

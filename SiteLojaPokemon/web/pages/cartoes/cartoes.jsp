@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="../../styles/cartoes.css">
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../../favicons/loja-pokemon-fav.ico" type="image/x-icon">
 
         <title>Loja Pokémon</title>
     </head>
@@ -78,11 +80,11 @@
                               <h1>
                                   <%=(cartao.getNome())%>
                               </h1>
-                            </div>   
-                          <div class="flex-row start">
+                          </div>   
+                          <div class="flex-row start" style="margin-bottom: 5px;">
                                R$ <%=(cartao.getSaldo())%>
                           </div>               
-                          <div class="flex-row end">
+                          <div class="flex-row space-evenly">
                               <button class="light" onclick="show_editar_cartao_modal('<%=(cartao.getId())%>', <%=(cartao.getSaldo())%>, '<%=(cartao.getNome())%>')"><span style="font-size: 16px;" class=" material-icons">edit</span></button>
                               <button class="delete-button" onclick="show_excluir_cartao_modal('<%=(cartao.getId())%>')"><span style="font-size: 16px;" class=" material-icons">delete</span></button>
                           </div>        
