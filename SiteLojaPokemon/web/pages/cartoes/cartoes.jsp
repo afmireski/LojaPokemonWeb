@@ -3,14 +3,14 @@
 <%@page import="java.util.List"%>
 <%@page import="daos.DAOCartao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       
+
         <link rel="stylesheet" href="../../styles/style.css">
         <link rel="stylesheet" href="../../styles/flexbox.css">
         <link rel="stylesheet" href="../../styles/navigation.css">
@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="../../styles/cartoes.css">
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        
+
         <link rel="shortcut icon" href="../../favicons/loja-pokemon-fav.ico" type="image/x-icon">
 
         <title>Loja Pokémon</title>
@@ -69,31 +69,47 @@
             }
         %>
         <main class="flex-row">
-            <section class="flex-column uniforme-space grid-view start">
+            <section class="flex-column medium-space grid-view start" id="cartao-grid">                
                 <%
-                 DAOCartao daoCartao = new DAOCartao();
-                 List<Cartao> cartoes = daoCartao.listCartoesByUsuario(usuario.getId());
-                 for (Cartao cartao : cartoes) {
-                    %>
-                      <div class="cartao-card flex-column">
-                          <div class="flex-row start">
-                              <h1>
-                                  <%=(cartao.getNome())%>
-                              </h1>
-                          </div>   
-                          <div class="flex-row start" style="margin-bottom: 5px;">
-                               R$ <%=(cartao.getSaldo())%>
-                          </div>               
-                          <div class="flex-row space-evenly">
-                              <button class="light" onclick="show_editar_cartao_modal('<%=(cartao.getId())%>', <%=(cartao.getSaldo())%>, '<%=(cartao.getNome())%>')"><span style="font-size: 16px;" class=" material-icons">edit</span></button>
-                              <button class="delete-button" onclick="show_excluir_cartao_modal('<%=(cartao.getId())%>')"><span style="font-size: 16px;" class=" material-icons">delete</span></button>
-                          </div>        
-                      </div>  
-                    <%
-                     }
+                    DAOCartao daoCartao = new DAOCartao();
+                    List<Cartao> cartoes = daoCartao.listCartoesByUsuario(usuario.getId());
+
+                    if (cartoes != null && !cartoes.isEmpty()) {
+                        for (Cartao cartao : cartoes) {
+                %>
+                <div class="cartao-card flex-column">
+                    <div class="flex-row start">
+                        <h1>
+                            <%=(cartao.getNome())%>
+                        </h1>
+                    </div>   
+                    <div class="flex-row start" style="margin-bottom: 5px;">
+                        R$ <%=(cartao.getSaldo())%>
+                    </div>               
+                    <div class="flex-row space-around">
+                        <button class="light" onclick="show_editar_cartao_modal('<%=(cartao.getId())%>', <%=(cartao.getSaldo())%>, '<%=(cartao.getNome())%>')"><span style="font-size: 20px;" class=" material-icons">edit</span></button>
+                        <button class="delete-button" onclick="show_excluir_cartao_modal('<%=(cartao.getId())%>')"><span style="font-size: 20px;" class=" material-icons">delete</span></button>
+                    </div>        
+                </div>  
+                <%
+                        }
+                    } else {
+                %>
+                <div class="message-box">
+                    <div class="flex-row center">
+                        <span class="material-icons default-icon">
+                            credit_card_off
+                        </span>
+                    </div>
+                    <div class="flex-row center">
+                        Você ainda não cadastrou nenhum cartão
+                    </div>
+                </div>       
+                <%
+                    }
                 %>
             </section>
-            <section class="flex-column uniforme-space end">
+            <section class="flex-column uniforme-space start" id="insert-cartao-form">
                 <form action="../../cadastroCartaoServlet" method="POST" class="flex-column cartao-box end">
                     <h1>Cadastrar Novo Cartão</h1>       
                     <div class="flex-row form-row">
@@ -105,7 +121,7 @@
                     <div class="flex-row form-row">
                         <div class="flex-column">
                             <label for="txtSaldo">Saldo: </label>
-                            <input type="text" name="txtSaldo" id="txtSaldo" required min="1">
+                            <input type="number" name="txtSaldo" id="txtSaldo" required min="1">
                         </div>
                     </div>
                     <div class="flex-row form-row">
@@ -146,13 +162,13 @@
 
 
             <div class="modal" id="editar-cartao-modal">
-                <form action="../../updateCartaoServlet" method="POST" class="flex-column cartao-box">
+                <form action="../../updateCartaoServlet" method="POST" class="flex-column cartao-box" style="max-width: 30%;">
                     <div class="flex-row end"><span class="close-modal">&times;</span></div>
                     <input type="hidden" name="txtNumEd" id="txtNumEd">
                     <div class="flex-row form-row">
                         <div class="flex-column">
                             <label for="txtSaldoEd">Saldo: </label>
-                            <input type="text" name="txtSaldoEd" id="txtSaldoEd" required min="1">
+                            <input type="number" name="txtSaldoEd" id="txtSaldoEd" required min="1">
                         </div>
                     </div>
                     <div class="flex-row form-row">
@@ -166,11 +182,11 @@
                     </div>                    
                 </form>
             </div>
-            
+
         </main>    
-        
+
         <script src="../../scripts/cartoes/gerenciarCartoes.js"></script>
-     
+
         <%
                 }
             }

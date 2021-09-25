@@ -63,7 +63,7 @@ public class cadastroCartaoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**
@@ -85,23 +85,31 @@ public class cadastroCartaoServlet extends HttpServlet {
                 String txtNome = request.getParameter("txtNome");
 
                 DAOCartao daoCartao = new DAOCartao();
-                Cartao cartao = new Cartao();
 
-                cartao.setId(txtNum);
-                cartao.setNome(txtNome);
-                cartao.setSaldo(txtSaldo);
-                cartao.setDataCadastro(new Date());
-                cartao.setUsuarioID((Usuario) session.getAttribute("user"));
+                if (daoCartao.get(txtNum) == null) {
+                    Cartao cartao = new Cartao();
+                    cartao.setId(txtNum);
+                    cartao.setNome(txtNome);
+                    cartao.setSaldo(txtSaldo);
+                    cartao.setDataCadastro(new Date());
+                    cartao.setUsuarioID((Usuario) session.getAttribute("user"));
 
-                daoCartao.insert(cartao);
-                response.sendRedirect("pages/cartoes/cartao.jsp");
+                    daoCartao.insert(cartao);
+                    response.sendRedirect("pages/cartoes/cartoes.jsp");
+                } else {
+                    session.setAttribute(
+                            "cartaoError",
+                            "Esse cartão já se encontra cadastrado em nosso sistema!");
+
+                    response.sendRedirect("pages/cartoes/cartoes.jsp");
+                }
 
             } catch (Exception e) {
                 session.setAttribute(
                         "cartaoError",
                         "Houve uma falha ao tentarmos cadastrar o seu cartão!");
 
-                 response.sendRedirect("pages/cartoes/cartoes.jsp");
+                response.sendRedirect("pages/cartoes/cartoes.jsp");
             }
         } else {
             response.sendRedirect("messages_pages/no_power.html");

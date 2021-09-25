@@ -102,8 +102,8 @@
 
             if (phps.isEmpty()) {
         %>
-        <main class="flex-row center">
-            <div class="message-box">
+        <main class="flex-row" style="align-items: flex-start;">
+            <div class="message-box" style="margin: 20px auto;">
                 <div class="flex-row center">
                     <span class="material-icons default-icon">
                         production_quantity_limits
