@@ -3,30 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.autetication;
+package servlets.filter;
 
-import daos.DAOUsuario;
 import enums.LojaOrderBy;
 import enums.PhpOrderBy;
 import enums.SearchLojaFilter;
 import enums.SearchPhpFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Usuario;
 
 /**
  *
  * @author AFMireski
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "clearPHPFilterServlet", urlPatterns = {"/clearPHPFilterServlet"})
+public class clearPHPFilterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +42,10 @@ public class loginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginServlet</title>");
+            out.println("<title>Servlet clearLojaFilter</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet clearLojaFilter at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +63,17 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("messages_pages/unknown.html");
+        final HttpSession session = request.getSession(false);
+
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
+            session.setAttribute("phpFilter", SearchPhpFilter.NONE);
+            session.setAttribute("phpOrder", PhpOrderBy.NONE);
+            session.setAttribute("phpSearch", null);
+
+            response.sendRedirect("pages/home.jsp");
+        } else {
+            response.sendRedirect("messages_pages/unknown.html");
+        }
     }
 
     /**
@@ -80,37 +87,7 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final String email = request.getParameter("txtEmail");
-        final String password = request.getParameter("txtSenha");
-
-        final DAOUsuario daoUsuario = new DAOUsuario();
-
-        final Usuario usuario = daoUsuario.getUsuarioByEmail(email);
-
-        if (usuario != null && usuario.getAtivo()) {
-            if (usuario.getSenha().equals(password)) {
-                HttpSession session = request.getSession();
-
-                session.setAttribute("user", usuario);
-                session.setAttribute("sisID", session.getId());
-                session.setAttribute("lojaFilter", SearchLojaFilter.NONE);
-                session.setAttribute("lojaOrder", LojaOrderBy.NONE);
-                session.setAttribute("phpFilter", SearchPhpFilter.NONE);
-                session.setAttribute("phpOrder", PhpOrderBy.NONE);
-
-                response.sendRedirect("pages/home.jsp");
-            } else {
-                request.setAttribute("loginError", "Senha incorreta, tente novamente!");
-                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-
-                rd.forward(request, response);
-            }
-        } else {
-            request.setAttribute("loginError", "Usuário não encontrado, verifique o seu endereço de e-mail!");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-
-            rd.forward(request, response);
-        }
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**

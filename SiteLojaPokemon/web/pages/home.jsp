@@ -1,3 +1,5 @@
+<%@page import="enums.PhpOrderBy"%>
+<%@page import="enums.SearchPhpFilter"%>
 <%@page import="models.Novidades"%>
 <%@page import="daos.DAONovidades"%>
 <%@page import="models.Pedido"%>
@@ -27,7 +29,7 @@
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
-              
+
         <link rel="shortcut icon" href="../favicons/loja-pokemon-fav.ico" type="image/x-icon">
 
         <title>Loja Pokémon</title>
@@ -95,10 +97,27 @@
             }
         %>        
 
-        <h1 style="margin-bottom: 20px; margin-left: 10px;">Seus Pokémons</h1>
+        <div class="flex-row space-between" style="align-items: center;">
+            <h1 style="margin-bottom: 20px; margin-left: 10px;">Seus Pokémons</h1>
+            <div class="flex-row">
+                <button class="light filter-button" id="btn-filtro">
+                    <span class="material-icons">filter_list</span> <span>Filtro</span>
+                </button>                
+                <button class="dark filter-button" id="btn-limpar-filtro">
+                    <span class="material-icons">clear</span> Limpar filtros
+                </button>
+            </div>
+        </div>
         <%
             final DAOPedidoHasPokemon daoPhp = new DAOPedidoHasPokemon();
-            List<PedidoHasPokemon> phps = daoPhp.listPedidoHasPokemonsByUser(usuario.getId());
+            SearchPhpFilter filter = (SearchPhpFilter) session.getAttribute("phpFilter");
+            PhpOrderBy order = (PhpOrderBy) session.getAttribute("phpOrder");
+            
+            List<PedidoHasPokemon> phps = daoPhp.listPedidoHasPokemonsByUserWithFilters(
+                    usuario.getId(), 
+                    (String) session.getAttribute("phpSearch"), 
+                    filter, 
+                    order);
 
             if (phps.isEmpty()) {
         %>
@@ -120,6 +139,7 @@
         <main class="poke-grid grid-view start">
             <%
                 DAOPokemon daoPokemom = new DAOPokemon();
+
                 for (PedidoHasPokemon php : phps) {
                     Pokemon pokemon = daoPokemom.get(php.getPedidoHasPokemonPK().getPokemonID());
             %>
@@ -201,7 +221,39 @@
             </form>
         </div>
 
+        <!-- FILTRO MODAL -->
+        <div class="modal" id="filtro-form">
+            <form action="../phpFilterServlet" method="get" class="filter-box">
+                <div class="flex-row end"><span class="close-modal">&times;</span></div>
+                <div class="flex-row form-row space-between">
+                    <div class="flex-column">
+                        <label for="txtSearch" class="poke-label">Pesquisa</label>
+                        <input type="text" name="txtSearch" id="txtSearch">
+                    </div>
+                    <div class="flex-column">                        
+                        <label for="txtOrder" class="poke-label">Ordenar por</label>
+                        <select name="txtOrder" id="txtOrder">
+                            <option value="0">Padrão</option>
+                            <option value="1">Maior quantidade</option>
+                            <option value="2">Menor quantidade</option>
+                            <option value="3">Mais caro</option>
+                            <option value="4">Mais barato</option>
+                            <option value="5">Tipo Pokémon</option>
+                            <option value="6">A-Z</option>
+                            <option value="7">Z-A</option>
+                            <option value="8">Recentes</option>
+                            <option value="9">Antigos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex-row end">
+                    <button type="submit" class="light" id="btn-filtrar">Filtrar</button>
+                </div>
+            </form>
+        </div>
+
         <script src="../scripts/home/gerenciarPedidos.js"></script>
+        <script src="../scripts/home/pedidosFilter.js"></script>
 
         <%            }
         %>

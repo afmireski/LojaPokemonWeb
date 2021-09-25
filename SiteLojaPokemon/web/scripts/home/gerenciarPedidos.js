@@ -60,5 +60,7 @@ close_excluir.onclick = function () {
 window.onclick = function (event) {
     if (event.target == pedido_form)  {
         pedido_form.style.display = "none";
-    } 
+    } else if  (event.target == document.getElementById("filtro-form")) {
+        document.getElementById("filtro-form").style.display = "none";
+    }
 }

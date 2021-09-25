@@ -5,7 +5,10 @@
  */
 package daos;
 
+import enums.PhpOrderBy;
+import enums.SearchPhpFilter;
 import java.util.List;
+import javax.persistence.Query;
 import models.PedidoHasPokemon;
 import models.PedidoHasPokemonPK;
 
@@ -47,7 +50,7 @@ public class DAOPedidoHasPokemon extends DAOGeneric<PedidoHasPokemon> {
         return em.createQuery("SELECT e FROM PedidoHasPokemon e ORDER BY e.quantidade", PedidoHasPokemon.class).getResultList();
     }
     
-    public List<PedidoHasPokemon> orderByValorUnitario() {
+    public List<PedidoHasPokemon> orderByValorUnitario() {       
         return em.createQuery("SELECT e FROM PedidoHasPokemon e ORDER BY e.valorUnitario", PedidoHasPokemon.class).getResultList();
     }   
     
@@ -57,6 +60,28 @@ public class DAOPedidoHasPokemon extends DAOGeneric<PedidoHasPokemon> {
                 PedidoHasPokemon.class).setParameter("userID", userID).getResultList();
     }
     
+    public List<PedidoHasPokemon> listPedidoHasPokemonsByUserWithFilters(
+            int userID, String search, SearchPhpFilter filter, PhpOrderBy order) {
+        String query = "SELECT e FROM PedidoHasPokemon e WHERE e.pedido.usuarioID.id = :userID";
+        
+        if (filter.equals(SearchPhpFilter.HAS_SEARCH)) {
+            query += String.format(" AND %s", filter.getQuery());
+        }
+        
+        if (!order.equals(PhpOrderBy.NONE)) {
+            query += String.format(" %s", order.getQuery());            
+        }
+        
+        Query finalQuery = em.createQuery(query, PedidoHasPokemon.class);
+        
+        if (search != null && !search.trim().isEmpty()) {            
+            finalQuery.setParameter("search", "%"+search+"%");
+        }
+        
+        finalQuery.setParameter("userID", userID);
+        
+        return finalQuery.getResultList();
+    }
     
     public static void main(String[] args) {
         DAOPedidoHasPokemon daoPedidoHasPokemon = new DAOPedidoHasPokemon();
