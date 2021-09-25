@@ -1,3 +1,5 @@
+<%@page import="enums.LojaOrderBy"%>
+<%@page import="enums.SearchLojaFilter"%>
 <%@page import="models.Cartao"%>
 <%@page import="daos.DAOCartao"%>
 <%@page import="daos.DAOPreco"%>
@@ -70,12 +72,28 @@
         <%
             }
         %>
-        <h1 style="margin-bottom: 20px; margin-left: 10px;">Escolha seu Pokémon</h1>
+        <div class="flex-row space-between" style="align-items: center;">
+            <h1 style="margin-bottom: 20px; margin-left: 10px;">Escolha seu Pokémon</h1>
+
+            <div class="flex-row">
+                <button class="light filter-button" id="btn-filtro">
+                    <span class="material-icons">filter_list</span> <span>Filtro</span>
+                </button>                
+                <button class="dark filter-button" id="btn-limpar-filtro">
+                    <span class="material-icons">clear</span> Limpar filtros
+                </button>
+            </div>
+        </div>
 
         <%
             final DAOPokemon daoPokemon = new DAOPokemon();
-
-            List<Pokemon> pokemons = daoPokemon.listAllPokemonsWithEstoque();
+            SearchLojaFilter filter = (SearchLojaFilter) session.getAttribute("lojaFilter");
+            LojaOrderBy order = (LojaOrderBy) session.getAttribute("lojaOrder");
+            
+            List<Pokemon> pokemons = daoPokemon.listAllPokemonsWithEstoqueAndPrecoWithFilters(
+                    (String) session.getAttribute("lojaSearch"), 
+                    filter, 
+                    order);
 
             if (pokemons.isEmpty()) {
         %>
@@ -87,7 +105,7 @@
                     </span>
                 </div>
                 <div class="flex-row center">
-                    Infelizmente ainda não temos nenhum Pokémon disponível em estoque
+                    Infelizmente não temos nenhum Pokémon disponível em estoque
                 </div>
             </div>
         </main>
@@ -203,7 +221,35 @@
             </form>
         </div>
 
+        <!-- FILTRO MODAL -->
+        <div class="modal" id="filtro-form">
+            <form action="../../lojaFilterServlet" method="get" class="filter-box">
+                <div class="flex-row end"><span class="close-modal">&times;</span></div>
+                <div class="flex-row form-row space-between">
+                    <div class="flex-column">
+                        <label for="txtSearch" class="poke-label">Pesquisa</label>
+                        <input type="text" name="txtSearch" id="txtSearch">
+                    </div>
+                    <div class="flex-column">                        
+                        <label for="txtOrder" class="poke-label">Ordenar por</label>
+                        <select name="txtOrder" id="txtOrder">
+                            <option value="0">Padrão</option>
+                            <option value="1">Maior estoque</option>
+                            <option value="2">Menor estoque</option>
+                            <option value="3">Tipo Pokémon</option>
+                            <option value="4">A-Z</option>
+                            <option value="5">Z-A</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex-row end">
+                    <button type="submit" class="light" id="btn-filtrar">Filtrar</button>
+                </div>
+            </form>
+        </div>
+
         <script src="../../scripts/loja/comprar.js"></script>
+        <script src="../../scripts/loja/filter.js"></script>
 
         <%
             }

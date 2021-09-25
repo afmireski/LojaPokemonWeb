@@ -136,6 +136,24 @@
   animation-duration: 0.4s
 }
 
+
+.filter-box {
+  position: relative;
+    padding: 1em;
+    margin: 5% auto;
+    text-align: left;
+
+    background: #FFFFFF;
+    box-shadow: 2px 5px 10px 5px rgba(0, 0, 0, 0.4);
+
+    max-width: 30%;
+    min-width: 300px;
+
+    align-self: center;
+    text-align: left;
+    color: var(--secondary-color);
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {
@@ -194,6 +212,15 @@
     background-color: var(--primary-color-light);
     transition-duration: 500ms;
   }
+
+  button.filter-button {
+    max-height: 100px;
+    max-width: 200px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
+
 
   /* POKÉMON */
   .pokemon-card {

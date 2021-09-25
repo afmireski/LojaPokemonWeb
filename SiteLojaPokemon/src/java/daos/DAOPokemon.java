@@ -5,8 +5,11 @@
  */
 package daos;
 
+import enums.LojaOrderBy;
+import enums.SearchLojaFilter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Query;
 import models.Pokemon;
 
 /**
@@ -66,9 +69,30 @@ public class DAOPokemon extends DAOGeneric<Pokemon>{
         return em.createQuery("SELECT e from Pokemon e ORDER BY e.tipoPokemonID DESC").getResultList();
     }
     
-    public List<Pokemon> listAllPokemonsWithEstoque() {
+    public List<Pokemon> listAllPokemonsWithEstoqueAndPreco() {
         List<Pokemon> pokes = em.createQuery("SELECT e FROM Pokemon e WHERE e.estoque > 0 AND (SELECT COUNT(p) FROM Preco p WHERE p.precoPK.pokemonID = e.id) > 0", Pokemon.class).getResultList();
         return pokes;
+    }
+    
+    public List<Pokemon> listAllPokemonsWithEstoqueAndPrecoWithFilters(
+            String search, SearchLojaFilter filter, LojaOrderBy order) {
+        String query = "SELECT e FROM Pokemon e WHERE e.estoque > 0 AND (SELECT COUNT(p) FROM Preco p WHERE p.precoPK.pokemonID = e.id) > 0";
+        
+        if (filter.equals(SearchLojaFilter.HAS_SEARCH)) {            
+            query += String.format(" AND %s", filter.getQuery());
+        }
+        
+        if (!order.equals(LojaOrderBy.NONE)) {
+            query += String.format(" %s", order.getQuery());            
+        }
+            
+        Query finalQuery = em.createQuery(query, Pokemon.class);
+        
+        if (search != null && !search.trim().isEmpty()) {            
+            finalQuery.setParameter("search", "%"+search+"%");
+        }
+        
+        return finalQuery.getResultList();
     }
             
     

@@ -3,28 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.autetication;
+package servlets.filter;
 
-import daos.DAOUsuario;
 import enums.LojaOrderBy;
 import enums.SearchLojaFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Usuario;
 
 /**
  *
  * @author AFMireski
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "lojaFilterServlet", urlPatterns = {"/lojaFilterServlet"})
+public class lojaFilterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class loginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginServlet</title>");
+            out.println("<title>Servlet lojaFilterServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet lojaFilterServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +61,56 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("messages_pages/unknown.html");
+        final HttpSession session = request.getSession(false);
+
+        if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {
+            try {
+                final String search = (String) request.getParameter("txtSearch");
+                final Integer order = Integer.valueOf(request.getParameter("txtOrder"));
+
+                SearchLojaFilter filter = search == null || search.trim().isEmpty()
+                        ? SearchLojaFilter.NONE : SearchLojaFilter.HAS_SEARCH;
+                LojaOrderBy orderBy;
+
+                switch (order) {
+                    case 1:
+                        orderBy = LojaOrderBy.MAIOR_ESTOQUE;
+                        break;
+                    case 2:
+                        orderBy = LojaOrderBy.MENOR_ESTOQUE;
+                        break;
+                    case 3:
+                        orderBy = LojaOrderBy.TIPO_POKEMON;
+                        break;
+                    case 4:
+                        orderBy = LojaOrderBy.A_Z;
+                        break;
+                    case 5:
+                        orderBy = LojaOrderBy.Z_A;
+                        break;
+                    case 0:
+                    default:
+                        orderBy = LojaOrderBy.NONE;
+                }
+
+                session.setAttribute("lojaFilter", filter);
+                session.setAttribute("lojaOrder", orderBy);
+                session.setAttribute("lojaSearch", search);
+
+                response.sendRedirect("pages/loja/loja.jsp");
+            } catch (Exception e) {
+                session.setAttribute(
+                        "storeError",
+                        "Houve uma falha ao tentar efetuar a sua pesquisa, tente"
+                                + " novamente mais tarde."
+                );
+
+                response.sendRedirect("pages/loja/loja.jsp");
+            }
+
+        } else {
+            response.sendRedirect("messages_pages/unknown.html");
+        }
     }
 
     /**
@@ -78,35 +124,7 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final String email = request.getParameter("txtEmail");
-        final String password = request.getParameter("txtSenha");
-
-        final DAOUsuario daoUsuario = new DAOUsuario();
-
-        final Usuario usuario = daoUsuario.getUsuarioByEmail(email);
-
-        if (usuario != null && usuario.getAtivo()) {
-            if (usuario.getSenha().equals(password)) {
-                HttpSession session = request.getSession();
-
-                session.setAttribute("user", usuario);
-                session.setAttribute("sisID", session.getId());
-                session.setAttribute("lojaFilter", SearchLojaFilter.NONE);
-                session.setAttribute("lojaOrder", LojaOrderBy.NONE);
-
-                response.sendRedirect("pages/home.jsp");
-            } else {
-                request.setAttribute("loginError", "Senha incorreta, tente novamente!");
-                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-
-                rd.forward(request, response);
-            }
-        } else {
-            request.setAttribute("loginError", "Usuário não encontrado, verifique o seu endereço de e-mail!");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-
-            rd.forward(request, response);
-        }
+        response.sendRedirect("messages_pages/unknown.html");
     }
 
     /**

@@ -63,5 +63,7 @@ window.onclick = function (event) {
         poke_form.style.display = "none";
     } else if (event.target == pagar_form)  {
         pagar_form.style.display = "none";
+    } else if (event.target == document.getElementById("filtro-form")) {
+        document.getElementById("filtro-form").style.display = "none";
     }
 }
