@@ -23,6 +23,8 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
 
+        <link rel="shortcut icon" href="../../favicons/loja-pokemon-fav.ico" type="image/x-icon">
+
         <title>Loja Pokémon</title>
     </head>
     <body>

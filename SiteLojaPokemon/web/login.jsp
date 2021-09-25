@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/flexbox.css">
     <link rel="stylesheet" href="styles/components.css">
-
+    <link rel="shortcut icon" href="favicons/loja-pokemon-fav.ico" type="image/x-icon">
 
     <title>Loja Pokémon</title>
 
