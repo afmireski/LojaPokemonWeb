@@ -42,7 +42,7 @@ function show_pagar() {
 
     let total = value * txtQtd.value;
 
-    total_price.innerHTML += `${total}`;
+    total_price.innerHTML = `${total}`;
     
     var txtQtdP = document.getElementById("txtQtdP");
     txtQtdP.value = txtQtd.value;    

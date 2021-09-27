@@ -84,14 +84,16 @@
             final Novidades novidade = daoNovidades.getUltimaNovidade();
             if (novidade != null) {
         %>
-        <div class="flex-column novidades-box">
-            <h1>
-                <%=(novidade.getTitulo())%>
-            </h1>
-            <div class="flex-row start">
-                <%=(novidade.getDescricao())%>
+        <section class="flex-row center">
+            <div class="flex-column novidades-box">
+                <h1>
+                    <%=(novidade.getTitulo())%>
+                </h1>
+                <div class="flex-row start">
+                    <%=(novidade.getDescricao())%>
+                </div>
             </div>
-        </div>
+        </section>
         <%
 
             }

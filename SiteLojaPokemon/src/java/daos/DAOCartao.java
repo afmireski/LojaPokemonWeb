@@ -28,8 +28,10 @@ public class DAOCartao extends DAOGeneric<Cartao>{
     }
     
     public List<Cartao> listCartoesByUsuario(int userID) {
-        return em.createQuery("SELECT e FROM Cartao e WHERE e.usuarioID.id = :id", 
+        final List<Cartao> cartoes = em.createQuery("SELECT e FROM Cartao e WHERE e.usuarioID.id = :id", 
                 Cartao.class).setParameter("id", userID).getResultList();
+        
+        return cartoes;
     }   
     
     public List<String> toFKList() {

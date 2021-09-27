@@ -85,13 +85,12 @@ public class DAOPokemon extends DAOGeneric<Pokemon>{
         if (!order.equals(LojaOrderBy.NONE)) {
             query += String.format(" %s", order.getQuery());            
         }
-            
+
         Query finalQuery = em.createQuery(query, Pokemon.class);
         
         if (search != null && !search.trim().isEmpty()) {            
             finalQuery.setParameter("search", "%"+search+"%");
         }
-        
         return finalQuery.getResultList();
     }
             

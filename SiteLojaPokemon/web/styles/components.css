@@ -236,10 +236,17 @@
     border-radius: 10px;
 
     cursor: pointer;
+    z-index: 1;
+  }
+
+  .pokemon-card:hover {    
+    transform: translate(15px, -15px);
+    transition: 500ms;
+    z-index: 10;
   }
 
   h1.pokemon-title {
-    color:black; 
+    color: black; 
     font-size: 1em;
     font-weight: bold; 
   }
