@@ -24,7 +24,7 @@ public class DAOUsuario extends DAOGeneric<Usuario> {
     }
 
     public Usuario getUsuarioByEmail(String email) {
-//        Verifica se existe um e-mail cadastrado no banco
+        this.refreshAllEntities();
         try {
             return em.createQuery("SELECT e FROM Usuario e WHERE e.email like :email", Usuario.class)
                     .setParameter("email", email).getSingleResult();

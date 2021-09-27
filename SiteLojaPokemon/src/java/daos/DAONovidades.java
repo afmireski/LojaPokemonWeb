@@ -27,6 +27,7 @@ public class DAONovidades extends DAOGeneric<Novidades>{
     }
     
     public Novidades getUltimaNovidade(){
+        this.refreshAllEntities();
         List<Novidades> lista = em.createQuery("SELECT e FROM Novidades e ORDER BY e.id desc").getResultList(); 
         return lista.isEmpty()?null:lista.get(0); 
     }

@@ -40,6 +40,7 @@ public class DAOPedido extends DAOGeneric<Pedido> {
     }
     
     public Integer getLastPedidoID() {
+        this.refreshAllEntities();
         return this.orderByID(true).get(0).getId();
     }
     

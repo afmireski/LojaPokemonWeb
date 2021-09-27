@@ -55,6 +55,7 @@ public class DAOPedidoHasPokemon extends DAOGeneric<PedidoHasPokemon> {
     }   
     
     public List<PedidoHasPokemon> listPedidoHasPokemonsByUser(int userID) {
+        this.refreshAllEntities();
         return em.createQuery(
                 "SELECT e FROM PedidoHasPokemon e WHERE e.pedido.usuarioID.id = :userID", 
                 PedidoHasPokemon.class).setParameter("userID", userID).getResultList();
@@ -62,6 +63,7 @@ public class DAOPedidoHasPokemon extends DAOGeneric<PedidoHasPokemon> {
     
     public List<PedidoHasPokemon> listPedidoHasPokemonsByUserWithFilters(
             int userID, String search, SearchPhpFilter filter, PhpOrderBy order) {
+        this.refreshAllEntities();
         String query = "SELECT e FROM PedidoHasPokemon e WHERE e.pedido.usuarioID.id = :userID";
         
         if (filter.equals(SearchPhpFilter.HAS_SEARCH)) {
