@@ -202,7 +202,7 @@
                             <%
                                 for (Cartao c : cartoes) {
                             %>
-                                <option value="<%=(c.getId())%>"> <%=(c.getNome())%> - R$ <%=(c.getSaldo())%> </option>
+                                <option value="<%=(c.getId())%>"> <%=(c.getNome())%> - R$ <%=(String.format("%.2f", c.getSaldo()))%> </option>
                             <%
                                 }
                             %>

@@ -19,10 +19,10 @@ function show_detalhes_pedido(idPoke, idPedido, nome, tipo, quantidade, preco, i
     poke_quantidade.innerHTML = `${quantidade}`;
 
     var poke_price = document.getElementById("poke-preco");
-    poke_price.innerHTML = `${preco}`;
+    poke_price.innerHTML = `${preco.toFixed(2)}`;
 
     var poke_total = document.getElementById("poke-total");
-    poke_total.innerHTML = `${preco * quantidade}`;
+    poke_total.innerHTML = `${(preco * quantidade).toFixed(2)}`;
 
     var txtPokeID = document.getElementById("txtPokeID");
     txtPokeID.value = idPoke;

@@ -26,7 +26,7 @@ function show_pokemon(id, nome, tipo, estoque, preco, imagem) {
     txtQtd.max =estoque;    
 
     var poke_price = document.getElementById("poke-preco");
-    poke_price.innerHTML = `R$ ${preco}`;
+    poke_price.innerHTML = `R$ ${preco.toFixed(2)}`;
 
     value = preco;
     
@@ -42,7 +42,7 @@ function show_pagar() {
 
     let total = value * txtQtd.value;
 
-    total_price.innerHTML = `${total}`;
+    total_price.innerHTML = `${total.toFixed(2)}`;
     
     var txtQtdP = document.getElementById("txtQtdP");
     txtQtdP.value = txtQtd.value;    

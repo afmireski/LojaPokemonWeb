@@ -12,7 +12,7 @@ function show_editar_cartao_modal(id, saldo, desc){
     var txtNumEd = document.getElementById("txtNumEd"); 
     txtNumEd.value = id; 
     var txtSaldoEd = document.getElementById("txtSaldoEd"); 
-    txtSaldoEd.value = saldo; 
+    txtSaldoEd.value = saldo.toFixed(2); 
     var txtNomeEd = document.getElementById("txtNomeEd"); 
     txtNomeEd.value = desc; 
     editar_modal.style.display = "block"; 

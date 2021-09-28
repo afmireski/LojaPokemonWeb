@@ -84,7 +84,7 @@
                         </h1>
                     </div>   
                     <div class="flex-row start" style="margin-bottom: 5px;">
-                        R$ <%=(cartao.getSaldo())%>
+                        R$ <%=(String.format("%.2f", cartao.getSaldo()))%>
                     </div>               
                     <div class="flex-row space-around">
                         <button class="light" onclick="show_editar_cartao_modal('<%=(cartao.getId())%>', <%=(cartao.getSaldo())%>, '<%=(cartao.getNome())%>')"><span style="font-size: 20px;" class=" material-icons">edit</span></button>
