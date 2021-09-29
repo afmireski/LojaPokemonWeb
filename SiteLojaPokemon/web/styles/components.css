@@ -24,6 +24,18 @@
     max-width: 500px;
 }
 
+.warning-message {
+  padding: 20px;
+  background-color: rgb(255, 133, 77);
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 15px;
+
+  font-weight: 600;
+
+  max-width: 500px;
+}
+
 
 .closebtn {
     margin-left: 15px;

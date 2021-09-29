@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -116,16 +117,23 @@ public class novaCompraServlet extends HttpServlet {
                     pedido.setUsuarioID(usuario);
                     pedido.setCartaoID(cartao);
                     
-                    daoPedido.insert(pedido);                     
+                    daoPedido.insert(pedido);  
+                    
+                    Integer pedidoID = daoPedido.getLastPedidoID();
 
                     final PedidoHasPokemon pedidoHasPokemon = new PedidoHasPokemon(
-                            new PedidoHasPokemonPK(daoPedido.getLastPedidoID(), pokemon.getId()),
+                            new PedidoHasPokemonPK(pedidoID, pokemon.getId()),
                             txtQtdP,
                             valor_unitario
                     );
                                            
                     daoPedidoHasPokemon.insert(pedidoHasPokemon);
-                    response.sendRedirect("pages/home.jsp");
+                    
+                    request.setAttribute("pedidoID", pedidoID);
+                    
+                    RequestDispatcher rd = request.getRequestDispatcher("emitirReciboServlet");
+                    
+                    rd.forward(request, response);
                 } else {
                     session.setAttribute(
                             "storeError", 

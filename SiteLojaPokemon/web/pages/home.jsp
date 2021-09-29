@@ -78,6 +78,24 @@
         <%
             }
         %>
+        <!-- Mensagem de Erro -->
+        <%
+            String reciboErrorMessage = (String) session.getAttribute("reciboError");
+
+            if (reciboErrorMessage != null && !reciboErrorMessage.trim().isEmpty()) {
+                session.removeAttribute("reciboError");
+        %>
+        <div class="flex-row center">
+            <div class="warning-message">
+                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">
+                    &times;
+                </span>
+                <%=(reciboErrorMessage)%>
+            </div>
+        </div>
+        <%
+            }
+        %>
 
         <%
             final DAONovidades daoNovidades = new DAONovidades();

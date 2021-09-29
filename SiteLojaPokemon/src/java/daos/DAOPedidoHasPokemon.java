@@ -85,6 +85,13 @@ public class DAOPedidoHasPokemon extends DAOGeneric<PedidoHasPokemon> {
         return finalQuery.getResultList();
     }
     
+    public List<PedidoHasPokemon> findAllPHPByPedidoID(Integer pedidoID) {
+        Query query = em.createQuery("SELECT e FROM PedidoHasPokemon e WHERE e.pedidoHasPokemonPK.pedidoID = :pedidoID",
+                 PedidoHasPokemon.class);
+        query.setParameter("pedidoID", pedidoID);
+        return query.getResultList();
+    }
+    
     public static void main(String[] args) {
         DAOPedidoHasPokemon daoPedidoHasPokemon = new DAOPedidoHasPokemon();
         
