@@ -39,6 +39,10 @@
     justify-content: center;
 }
 
+.itens-center {
+    align-items: center;
+}
+
 
 /* Disposição */
 .uniforme-space {

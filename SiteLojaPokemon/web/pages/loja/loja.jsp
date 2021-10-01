@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="../../styles/components.css">
         <link rel="stylesheet" href="../../styles/messages.css">
         <link rel="stylesheet" href="../../styles/loja.css">
+        <link rel="stylesheet" href="../../styles/messages.css">
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
@@ -71,7 +72,7 @@
         </div>
         <%
             }
-        %>
+        %>        
         <div class="flex-row space-between" style="align-items: center;">
             <h1 style="margin-bottom: 20px; margin-left: 10px;">Escolha seu Pokémon</h1>
 
@@ -173,7 +174,7 @@
 
         <!-- Pagar MODAL -->
         <div class="modal"  id="pagar-form">
-            <form action="../../novaCompraServlet" method="post" class="pagar-box" accept-charset="utf-8">
+            <form action="../../novaCompraServlet" onsubmit="bloquear_pagar()" method="post" class="pagar-box" accept-charset="utf-8">
                 <div class="flex-row end"><span class="close-modal">&times;</span></div>
                 <div class="flex-row start form-row poke-price">
                     Total: R$ <span id="total-price" class=""></span>                 
@@ -214,7 +215,7 @@
                     </div>
                 </div>
                 <div class="flex-row end">
-                    <button type="submit" class="light" >Pagar</button>
+                    <button type="submit" class="light" id='btn-pagar'>Pagar</button>
                 </div>
                 <input type="hidden" name="txtPokeID" id="txtPokeID">
                 <input type="hidden" name="txtQtdP" id="txtQtdP">
@@ -246,6 +247,14 @@
                     <button type="submit" class="light" id="btn-filtrar">Filtrar</button>
                 </div>
             </form>
+        </div>
+
+        <!-- LOADER MODAL -->
+        <div class="modal" id="loader-modal">
+            <div class="loader-box flex-column itens-center">
+                <h1 class="loading-title">Finalizando compra</h1>
+                <div class="loader"></div>
+            </div>
         </div>
 
         <script src="../../scripts/loja/comprar.js"></script>

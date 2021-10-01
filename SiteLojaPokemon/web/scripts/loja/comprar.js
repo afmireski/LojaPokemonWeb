@@ -58,6 +58,14 @@ close_pagar.onclick = function () {
     pagar_form.style.display = "none";
 }
 
+function bloquear_pagar() {
+    var loader = document.getElementById('loader-modal');
+    var btn_pagar = document.getElementById('btn-pagar');
+
+    btn_pagar.disabled = true;
+    loader.style.display = 'block';
+}
+
 window.onclick = function (event) {
     if (event.target == poke_form)  {
         poke_form.style.display = "none";
