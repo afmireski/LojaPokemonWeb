@@ -59,11 +59,23 @@ public class Recibo {
     private static final String MSG_FALHA_ENCONTRAR_RELATORIO = "O arquivo ReciboPedido%d.pdf "
             + "não foi encontrado";
 
+    /**
+     * Cria e envia no e-mail do usuário um PDF para servir de recibo da compra efetuada. 
+     * @param pedidoID
+     * @param reciboPath
+     * @throws Exception
+     */
     public static void emitirRecibo(Integer pedidoID, String reciboPath) throws Exception {
         generateReciboByPedido(pedidoID, reciboPath);
         enviarReciboPorEmail(pedidoID, reciboPath);
     }
 
+    /**
+     * Gera um PDF com base nos dados do ID do Pedido informado.
+     * @param pedidoID
+     * @param reciboPath
+     * @throws Exception 
+     */
     private static void generateReciboByPedido(Integer pedidoID, String reciboPath) throws Exception {
         final Font titleFont = FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new CMYKColor(89, 34, 0, 64));
         final Font enphasisFont = FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD, new CMYKColor(89, 34, 0, 14));
@@ -195,6 +207,16 @@ public class Recibo {
         }
     }
 
+    /**
+     * Envia o PDF criado por generateReciboByPedido no e-mail cadastrado do 
+     * usuário no banco.
+     * A origem sempre será o e-mail cadastrado no usuário com ID 100.
+     * Não funciona se o provedor de e-mail da origem não for um gmail.
+     * 
+     * @param pedidoID
+     * @param reciboPath
+     * @throws Exception 
+     */
     private static void enviarReciboPorEmail(Integer pedidoID, String reciboPath) throws Exception {
         final DAOPedido daoPedido = new DAOPedido();
         final DAOUsuario daoUsuario = new DAOUsuario();
