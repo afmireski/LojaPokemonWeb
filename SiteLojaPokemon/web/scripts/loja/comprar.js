@@ -58,6 +58,7 @@ close_pagar.onclick = function () {
     pagar_form.style.display = "none";
 }
 
+//Mostra um loader para bloquear a tela enquanto o servlet de compra não tiver sido completamente executado
 function bloquear_pagar() {
     var loader = document.getElementById('loader-modal');
     var btn_pagar = document.getElementById('btn-pagar');
