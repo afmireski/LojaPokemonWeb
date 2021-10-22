@@ -11,7 +11,7 @@
 <%@page import="daos.DAOPedidoHasPokemon"%>
 <%@page import="daos.DAOUsuario" %>
 <%@page import="models.Usuario" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 

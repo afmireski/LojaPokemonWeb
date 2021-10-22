@@ -81,6 +81,9 @@ public class prossegueEnderecoServlet extends HttpServlet {
                 "MINAS GERAIS", "PARÁ", "PARAÍBA", "PARANÁ", "PERNAMBUCO", "PIAUÍ", "RIO DE JANEIRO",
                 "RIO GRANDE DO NORTE", "RIO GRANDE DO SUL", "RONDÔNIA", "RORAIMA", "SANTA CATARINA",
                 "SÃO PAULO", "SERGIPE", "TOCANTINS", "DISTRITO FEDERAL"};
+            
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
 
             final String txtCEP = request.getParameter("txtCEP");
             final int txtNCasa = Integer.valueOf(request.getParameter("txtNCasa"));

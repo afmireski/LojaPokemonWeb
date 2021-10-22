@@ -13,7 +13,6 @@ import daos.DAOPreco;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -87,6 +86,8 @@ public class novaCompraServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         final HttpSession session = request.getSession(false);
 
         if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {

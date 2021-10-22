@@ -80,6 +80,8 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         final String email = request.getParameter("txtEmail");
         final String password = request.getParameter("txtSenha");
 

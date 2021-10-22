@@ -76,7 +76,8 @@ public class updateUsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         final HttpSession session = request.getSession();
 
         if (session != null && session.getId().equals((String) session.getAttribute("sisID"))) {

@@ -42,7 +42,7 @@ public class updateCartaoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet updateCartaoServlet</title>");            
+            out.println("<title>Servlet updateCartaoServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet updateCartaoServlet at " + request.getContextPath() + "</h1>");
@@ -77,6 +77,8 @@ public class updateCartaoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
         if (session != null && session.getId().equals(session.getAttribute("sisID"))) {
             try {
@@ -100,13 +102,12 @@ public class updateCartaoServlet extends HttpServlet {
                         "cartaoError",
                         "Houve uma falha ao tentarmos atualizar o seu cartão!");
 
-                 response.sendRedirect("pages/cartoes/cartoes.jsp");
+                response.sendRedirect("pages/cartoes/cartoes.jsp");
             }
         } else {
             response.sendRedirect("messages_pages/no_power.html");
         }
     }
-    
 
     /**
      * Returns a short description of the servlet.
