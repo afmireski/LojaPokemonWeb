@@ -112,7 +112,7 @@ public class updatePessoaServlet extends HttpServlet {
 
                 session.setAttribute("user", daoUsuario.get(usuario.getId()));
 
-                response.sendRedirect("pages/home.jsp");
+                response.sendRedirect("pages/perfil/perfil.jsp");
             } catch (Exception e) {
                 session.setAttribute(
                         "perfilError",

@@ -107,7 +107,7 @@ public class updateUsuarioServlet extends HttpServlet {
 
                         session.setAttribute("user", daoUsuario.get(newUsuario.getId()));
 
-                        response.sendRedirect("pages/home.jsp");
+                        response.sendRedirect("pages/perfil/perfil.jsp");
 
                     } catch (Exception e) {
                         session.setAttribute(
